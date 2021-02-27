@@ -29,19 +29,6 @@ const Person = ({ name }) => {
 };
 
 export default function Login() {
-  interface User {
-    name: string;
-    age: number;
-    height?: number;
-  }
-
-  let user: User = {
-    name: "Ahmed",
-    age: 10,
-  };
-
-  console.log(user);
-
   return (
     <Box>
       This is the login page!

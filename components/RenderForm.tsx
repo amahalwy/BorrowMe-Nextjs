@@ -9,6 +9,7 @@ const RenderForm = () => {
       templateColumns="repeat(6, 1fr)"
       templateRows="repeat(6, 1fr)"
       gap={1}
+      w={{ base: "90%", "450px": "450px" }}
     >
       {SignupInputs.map((value, i) => {
         return (

@@ -7,11 +7,13 @@ export default function App({ Component, pageProps }) {
     styles: {
       global: {
         body: {
-          bg: "rgb(241,241,241)",
+          bg: "white",
         },
       },
     },
+    ////addd in custom breakpoints here
   });
+  console.log(theme);
   return (
     // <Provider store={store}>
     <ChakraProvider theme={theme}>

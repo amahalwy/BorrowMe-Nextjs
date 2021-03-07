@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
     styles: {
       global: {
         body: {
-          bg: "rgb(241,241,241)",
+          bg: "white",
         },
       },
     },

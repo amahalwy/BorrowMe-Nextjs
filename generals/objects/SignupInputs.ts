@@ -60,6 +60,7 @@ const email = {
 const password = {
   id: "password",
   placeholder: "Password",
+  type: "password",
   inputStyles: {
     cursor: "pointer",
     display: "block",

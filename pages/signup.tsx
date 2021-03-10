@@ -30,7 +30,6 @@ const Signup = () => {
                 borderRadius="25px"
                 colorScheme="blue"
                 m="auto"
-                cursor="pointer"
                 fontSize="1.3em"
                 width="450px"
                 disabled={hasValidationErrors || pristine || submitting}

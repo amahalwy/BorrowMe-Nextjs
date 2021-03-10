@@ -23,6 +23,7 @@ const InputFields = ({ inputField }) => {
               style={inputField.inputStyles}
               placeholder={inputField.placeholder}
               {...input}
+              type={inputField.type || "text"}
             />
           </InputGroup>
           {meta.touched && meta.error && (

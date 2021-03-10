@@ -22,7 +22,8 @@
     "pages/login.jsx",
     "pages/login.jsx",
     "pages/hello.tsx",
-    "components/Trial.tsx"
+    "components/Trial.tsx",
+    "components/signupinputs.ts"
   ],
   "exclude": ["node_modules"]
 }

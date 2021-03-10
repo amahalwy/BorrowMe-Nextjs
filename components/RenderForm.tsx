@@ -1,29 +1,26 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import InputFields from "./InputFields";
-import SignupInputs from "./SignupInputs";
+import SignupInputs from "../generals/objects/SignupInputs";
 
 const RenderForm = () => {
-  return (
-    <Grid
-      templateColumns="repeat(6, 1fr)"
-      templateRows="repeat(6, 1fr)"
-      gap={1}
-      w={{ base: "90%", "450px": "450px" }}
-    >
-      {SignupInputs.map((value, i) => {
-        return (
-          <GridItem
-            key={i}
-            style={value.inputStyles}
-            colSpan={parseInt(value.gridItemStyles.colSpan)}
-          >
-            {<InputFields inputField={value} i={i} />}
-          </GridItem>
-        );
-      })}
-    </Grid>
-  );
+  return SignupInputs.map((element, i) => {
+    if (element.length === 1) {
+      return (
+        <Box m="4px 0" key={i}>
+          <InputFields inputField={element[0]} />
+        </Box>
+      );
+    } else {
+      return (
+        <Box d="flex" key={i}>
+          {element.map((input, i) => {
+            return <InputFields inputField={input} key={i} />;
+          })}
+        </Box>
+      );
+    }
+  });
 };
 
 export default RenderForm;

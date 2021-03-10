@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Heading,
-  Input,
-  InputGroup,
-} from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react";
-import { Field, Form } from "react-final-form";
-import SignupInputs from "../components/SignupInputs";
+import { Box, Button, Heading } from "@chakra-ui/react";
+import { Form } from "react-final-form";
 import RenderForm from "../components/RenderForm";
 
 const Signup = () => {
@@ -24,9 +14,16 @@ const Signup = () => {
       </Box>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, form, submitting, pristine, values }) => (
+        render={({
+          handleSubmit,
+          form,
+          submitting,
+          pristine,
+          values,
+          hasValidationErrors,
+        }) => (
           <form onSubmit={handleSubmit}>
-            <RenderForm InputsArray={SignupInputs} />
+            <RenderForm />
             <Box p="30px 0" display="flex">
               <Button
                 type="submit"
@@ -36,12 +33,11 @@ const Signup = () => {
                 cursor="pointer"
                 fontSize="1.3em"
                 width="450px"
-                disabled={pristine || submitting}
+                disabled={hasValidationErrors || pristine || submitting}
               >
                 Submit
               </Button>
             </Box>
-            {/* <pre>{JSON.stringify(values)}</pre> */}
           </form>
         )}
       />

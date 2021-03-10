@@ -13,6 +13,5 @@ export async function getServerSideProps(req) {
 }
 
 export default function UserPage({ props }) {
-  console.log(props);
   return <div>This is a user page!!</div>;
 }

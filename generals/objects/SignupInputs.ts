@@ -1,14 +1,8 @@
-// const SignupInputs = () => {
 const firstName = {
   id: "firstName",
   placeholder: "First Name",
   inputStyles: {
-    display: "inline-block",
-    color: "red",
     margin: "0",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
@@ -16,12 +10,7 @@ const lastName = {
   id: "lastName",
   placeholder: "Last Name",
   inputStyles: {
-    display: "inline-block",
-    color: "red",
     margin: "0",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
@@ -30,10 +19,6 @@ const address = {
   placeholder: "Address",
   inputStyles: {
     display: "block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
@@ -41,11 +26,8 @@ const city = {
   id: "city",
   placeholder: "City",
   inputStyles: {
-    display: "inline-block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "2",
+    width: "95%",
+    marginRight: "5%",
   },
 };
 
@@ -53,11 +35,8 @@ const zipCode = {
   id: "zipCode",
   placeholder: "Zip Code",
   inputStyles: {
-    display: "inline-block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "2",
+    width: "94%",
+    margin: "0 3%",
   },
 };
 
@@ -65,11 +44,8 @@ const state = {
   id: "state",
   placeholder: "State",
   inputStyles: {
-    display: "inline-block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "2",
+    width: "95%",
+    marginLeft: "5%",
   },
 };
 
@@ -78,23 +54,16 @@ const email = {
   placeholder: "Email",
   inputStyles: {
     display: "block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
 const password = {
   id: "password",
   placeholder: "Password",
+  type: "password",
   inputStyles: {
     cursor: "pointer",
     display: "block",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
@@ -104,26 +73,17 @@ const confirmPassword = {
   type: "password",
   inputStyles: {
     cursor: "pointer",
-    color: "red",
-  },
-  gridItemStyles: {
-    colSpan: "6",
   },
 };
 
 const SignupInputs = [
-  firstName,
-  lastName,
-  address,
-  city,
-  zipCode,
-  state,
-  email,
-  password,
-  confirmPassword,
+  [firstName],
+  [lastName],
+  [address],
+  [city, zipCode, state],
+  [email],
+  [password],
+  [confirmPassword],
 ];
-
-// return InputsArray;
-// };
 
 export default SignupInputs;

@@ -33,6 +33,12 @@ const trialLogin = () => {
   loginUser(demopassword).then((res) => console.log(res));
 };
 
+const getDemo = () => {
+  return axios.get(
+    "https://borrow-me-api.herokuapp.com/api/users/5f4c768bff3c01eaf2c309c4"
+  );
+};
+
 export default function Login() {
   return (
     <Box>
@@ -90,7 +96,7 @@ export default function Login() {
             />
 
             <Box p="30px 0" display="flex">
-              <Button onClick={trialLogin}>Submit</Button>
+              <Button onClick={getDemo}>Submit</Button>
             </Box>
           </form>
         )}

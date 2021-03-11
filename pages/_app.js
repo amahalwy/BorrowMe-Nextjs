@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }) {
     },
     ////addd in custom breakpoints here
   });
-  console.log(theme);
   return (
     // <Provider store={store}>
     <ChakraProvider theme={theme}>

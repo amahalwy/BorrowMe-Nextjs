@@ -1,6 +1,5 @@
-import { useMemo } from "react";
 import { persistReducer } from "redux-persist";
-import { createStore, applyMiddleware, AnyAction, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import RootReducer from "../reducers/RootReducer";

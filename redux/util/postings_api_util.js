@@ -1,20 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const fetchPostings = () => {
-  return axios.get('/api/postings')
+  return axios.get("http://localhost:5000/api/postings");
 };
 
-export const fetchPosting = postingId => {
-  return axios.get(`/api/postings/${postingId}`)
+export const fetchPosting = (postingId) => {
+  return axios.get(`/api/postings/${postingId}`);
 };
 
-export const fetchUserPostings = ownerId => {
+export const fetchUserPostings = (ownerId) => {
   return axios.get(`/api/users/${ownerId}/postings`);
 };
 
-export const createPosting = posting => {
-  return axios.post('/api/postings', posting)
-}
+export const createPosting = (posting) => {
+  return axios.post("/api/postings", posting);
+};
 
 export const updatePosting = (postingId, data) => {
   return axios.patch(`/api/postings/${postingId}`, data);

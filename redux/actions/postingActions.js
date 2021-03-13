@@ -11,17 +11,17 @@ export const OPEN_MAP = "OPEN_MAP";
 export const CLEAR_MAP = "CLEAR_MAP";
 export const CLEAR_POSTING_ERRORS = "CLEAR_POSTING_ERRORS";
 
-const receivePostings = postings => ({
+const receivePostings = (postings) => ({
   type: RECEIVE_POSTINGS,
   postings,
 });
 
-const receivePosting = posting => ({
+const receivePosting = (posting) => ({
   type: RECEIVE_POSTING,
   posting,
 });
 
-const receiveErrors = errors => ({
+const receiveErrors = (errors) => ({
   type: RECEIVE_POST_ERRORS,
   errors,
 });
@@ -31,89 +31,90 @@ const clear = () => ({
 });
 
 const clearMod = () => ({
-  type: CLEAR_MODAL
-})
+  type: CLEAR_MODAL,
+});
 
 const clearTheMap = () => ({
-  type: CLEAR_MAP
-})
+  type: CLEAR_MAP,
+});
 
 const click = (posting) => ({
   type: CLICK_POSTING,
-  posting
+  posting,
 });
 
-const successPosting = status => ({
+const successPosting = (status) => ({
   type: SUCCESS,
-  status
-})
+  status,
+});
 
 const openTheMap = () => ({
   type: OPEN_MAP,
-  status: 'MAP'
-})
+  status: "MAP",
+});
 
 const clearErrs = () => ({
-  type: CLEAR_POSTING_ERRORS
-})
+  type: CLEAR_POSTING_ERRORS,
+});
 
-export const fetchPosting = postingId => dispatch => {
+export const fetchPosting = (postingId) => (dispatch) => {
   APIUtil.fetchPosting(postingId)
     .then((posting) => dispatch(receivePosting(posting)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const fetchPostings = () => dispatch => {
+export const fetchPostings = () => (dispatch) => {
   APIUtil.fetchPostings()
-    .then(postings => dispatch(receivePostings(postings)))
-    .catch(err => dispatch(receiveErrors(err.response.data)));
+    .then((postings) => {
+      dispatch(receivePostings(postings));
+      return postings.data;
+    })
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const fetchUserPostings = ownerId => dispatch => {
+export const fetchUserPostings = (ownerId) => (dispatch) => {
   APIUtil.fetchUserPostings(ownerId)
     .then((postings) => dispatch(receivePostings(postings)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const createPosting = posting => dispatch => {
+export const createPosting = (posting) => (dispatch) => {
   APIUtil.createPosting(posting)
-    .then(posting => 
-      {
-        dispatch(receivePosting(posting));
-        dispatch(successPosting(posting.status));
-      }
-    )
-    .catch((err) => dispatch(receiveErrors(err.response.data)))
+    .then((posting) => {
+      dispatch(receivePosting(posting));
+      dispatch(successPosting(posting.status));
+    })
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const updatePosting = (postingId, posting) => dispatch => {
+export const updatePosting = (postingId, posting) => (dispatch) => {
   APIUtil.updatePosting(postingId, posting)
-    .then(posting => dispatch(receivePosting(posting)))
-    .catch(err => dispatch(receiveErrors(err.response.data)));
+    .then((posting) => dispatch(receivePosting(posting)))
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const clearPostings = () => dispatch => {
+export const clearPostings = () => (dispatch) => {
   dispatch(clear());
-}
+};
 
-export const clickPosting = postingId => dispatch => {
+export const clickPosting = (postingId) => (dispatch) => {
   APIUtil.fetchPosting(postingId)
     .then((posting) => dispatch(click(posting)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
-}
+};
 
 export const clearModal = () => (dispatch) => {
   dispatch(clearMod());
 };
 
-export const showMap = () => dispatch => {
+export const showMap = () => (dispatch) => {
   dispatch(openTheMap());
-}
+};
 
-export const clearMap = () => dispatch => {
-  dispatch(clearTheMap())
-}
+export const clearMap = () => (dispatch) => {
+  dispatch(clearTheMap());
+};
 
-export const clearErrors = () => dispatch => {
-  dispatch(clearErrs())
-}
+export const clearErrors = () => (dispatch) => {
+  dispatch(clearErrs());
+};

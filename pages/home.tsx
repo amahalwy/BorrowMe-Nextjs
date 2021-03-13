@@ -14,10 +14,10 @@ import { useRouter } from "next/router";
 
 const Home = (props) => {
   const postings = props.postings;
+  console.log(props);
 
   // const router = useRouter();
 
-  console.log(postings);
   const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 

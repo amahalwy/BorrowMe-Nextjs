@@ -15,6 +15,7 @@ const receiveCurrentUser = (currentUser) => ({
 const receiveErrors = (errors) => ({
   type: RECEIVE_SESSION_ERRORS,
   errors,
+  status: 400,
 });
 
 const logoutUser = () => ({
@@ -35,7 +36,9 @@ export const signup = (user) => (dispatch) =>
       dispatch(receiveCurrentUser(decoded));
       return res;
     },
-    (err) => dispatch(receiveErrors(err.response.data))
+    (err) => {
+      return dispatch(receiveErrors(err.response.data));
+    }
   );
 
 export const login = (user) => (dispatch) =>

@@ -2,7 +2,7 @@ import {
   RECEIVE_POSTINGS,
   RECEIVE_POSTING,
   CLEAR_POSTINGS,
-} from "../actions/posting_actions";
+} from "../actions/postingActions";
 
 const PostingsReducer = (state = {}, action) => {
   Object.freeze(state);

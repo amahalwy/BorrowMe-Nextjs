@@ -1,7 +1,7 @@
 import {
   RECEIVE_POST_ERRORS,
   CLEAR_POSTING_ERRORS,
-} from "../actions/posting_actions";
+} from "../actions/postingActions";
 
 const _nullErrors = [];
 

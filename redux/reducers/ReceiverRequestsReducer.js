@@ -3,7 +3,7 @@ import {
   RECEIVE_REQUEST,
   REMOVE_REQUEST,
   CLEAR_REQUESTS,
-} from "../actions/request_actions";
+} from "../actions/requestActions";
 
 const ReceiverRequestsReducer = (state = {}, action) => {
   Object.freeze(state);

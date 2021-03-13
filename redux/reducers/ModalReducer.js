@@ -1,11 +1,7 @@
-import {
-  CLICK_POSTING,
-  CLEAR_MODAL,
-  SUCCESS,
-} from "../actions/posting_actions";
-import { UPDATE_SUCCESS } from "../actions/user_actions";
-import { CLICK_BOOKING } from "../actions/booking_actions";
-import { CLICK_REQUEST } from "../actions/request_actions";
+import { CLICK_POSTING, CLEAR_MODAL, SUCCESS } from "../actions/postingActions";
+import { UPDATE_SUCCESS } from "../actions/userActions";
+import { CLICK_BOOKING } from "../actions/bookingActions";
+import { CLICK_REQUEST } from "../actions/requestActions";
 
 const ModalReducer = (state = {}, action) => {
   Object.freeze(state);

@@ -1,4 +1,4 @@
-import { OPEN_MAP, CLEAR_MAP } from "../actions/posting_actions";
+import { OPEN_MAP, CLEAR_MAP } from "../actions/postingActions";
 
 const MapReducer = (state = {}, action) => {
   Object.freeze(state);

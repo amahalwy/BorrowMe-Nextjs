@@ -3,9 +3,9 @@ export const required = (value: string) => (value ? undefined : "Required");
 export const requiredAndEmail = (value: string) =>
   EmailValidator.validate(value) ? undefined : "Invalid Email Address";
 export const requiredAndPassword = (value: string) =>
-  value && value.length < 6 ? undefined : "Password Too Short";
+  value && value.length >= 6 ? undefined : "Password Too Short";
 export const requiredAndZipcode = (value: string) =>
-  value && value.length === 5 ? undefined : "Incorrect Format";
+  value && value.length === 5 ? undefined : "Incorrect Format (XXXXX)";
 
 export const requiredAndString = (value: string) => {
   if (!value) {

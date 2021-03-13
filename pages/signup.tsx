@@ -19,7 +19,13 @@ const Signup: React.FC = () => {
   }, []);
 
   const onSubmit = (values) => {
-    fetch(values);
+    fetch(values).then((res) => {
+      if (res.data.success) {
+        console.log("yepp");
+        router.push("/home");
+      }
+      return null;
+    });
   };
 
   React.useEffect(() => {
@@ -59,12 +65,9 @@ const Signup: React.FC = () => {
                 fontSize="1.3em"
                 width="450px"
                 disabled={
-                  hasValidationErrors ||
-                  pristine ||
-                  submitting ||
-                  (state.loading && !state.value)
+                  hasValidationErrors || pristine || submitting || state.loading
                 }
-                isLoading={state.loading && !state.value}
+                isLoading={state.loading}
                 loadingText="Creating User"
               >
                 Sign Up

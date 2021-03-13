@@ -33,6 +33,7 @@ const Signup: React.FC = () => {
     };
   }, []);
 
+
   return (
     <Box
       bg="white"

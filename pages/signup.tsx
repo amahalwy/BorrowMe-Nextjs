@@ -34,6 +34,7 @@ const Signup: React.FC = () => {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+
   return (
     <Box
       bg="white"

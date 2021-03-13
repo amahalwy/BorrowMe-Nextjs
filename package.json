@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.1.5",
     "@types/react": "^17.0.2",
     "axios": "^0.21.1",
+    "email-validator": "^2.0.4",
     "final-form": "^4.20.1",
     "framer-motion": "^3.9.1",
     "jwt-decode": "^3.1.2",
@@ -20,8 +21,13 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-final-form": "^6.5.2",
+    "react-icons": "^4.2.0",
     "react-redux": "^7.2.2",
-    "redux": "^4.0.5"
+    "react-use": "^17.2.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
+    "swr": "^0.5.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.33",

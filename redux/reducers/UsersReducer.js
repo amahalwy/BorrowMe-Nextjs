@@ -1,6 +1,6 @@
 // import { RECEIVE_USER } from "../../actions/user_actions";
-import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
-import { RECEIVE_USER, UPDATE_USER } from "../actions/user_actions";
+import { RECEIVE_CURRENT_USER } from "../actions/sessionActions";
+import { RECEIVE_USER, UPDATE_USER } from "../actions/userActions";
 
 const initialState = {
   isAuthenticated: false,

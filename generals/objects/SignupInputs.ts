@@ -1,4 +1,6 @@
-const firstName = {
+import { Field } from "../../typescript/interfaces";
+
+const firstName: Field = {
   id: "firstName",
   placeholder: "First Name",
   inputStyles: {
@@ -6,7 +8,7 @@ const firstName = {
   },
 };
 
-const lastName = {
+const lastName: Field = {
   id: "lastName",
   placeholder: "Last Name",
   inputStyles: {
@@ -14,7 +16,7 @@ const lastName = {
   },
 };
 
-const address = {
+const address: Field = {
   id: "address",
   placeholder: "Address",
   inputStyles: {
@@ -22,7 +24,7 @@ const address = {
   },
 };
 
-const city = {
+const city: Field = {
   id: "city",
   placeholder: "City",
   inputStyles: {
@@ -31,7 +33,7 @@ const city = {
   },
 };
 
-const zipCode = {
+const zipCode: Field = {
   id: "zipCode",
   placeholder: "Zip Code",
   inputStyles: {
@@ -40,7 +42,7 @@ const zipCode = {
   },
 };
 
-const state = {
+const state: Field = {
   id: "state",
   placeholder: "State",
   inputStyles: {
@@ -49,7 +51,7 @@ const state = {
   },
 };
 
-const email = {
+const email: Field = {
   id: "email",
   placeholder: "Email",
   inputStyles: {
@@ -57,22 +59,21 @@ const email = {
   },
 };
 
-const password = {
+const password: Field = {
   id: "password",
   placeholder: "Password",
   type: "password",
   inputStyles: {
-    cursor: "pointer",
     display: "block",
   },
 };
 
-const confirmPassword = {
+const confirmPassword: Field = {
   id: "confirmPassword",
   placeholder: "Confirm Password",
   type: "password",
   inputStyles: {
-    cursor: "pointer",
+    display: "block",
   },
 };
 

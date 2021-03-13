@@ -6,24 +6,26 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Field } from "react-final-form";
+import { returnValidation } from "../generals/functions/validations";
+import { InputFieldsProps } from "../typescript/interfaces";
 
-const required = (inputField) => (inputField ? undefined : "Required");
-const InputFields = ({ inputField }) => {
+const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
   return (
     <Field
       name={inputField.id}
-      validate={required}
+      validate={returnValidation(inputField.id)}
       render={({ input, meta }) => (
         <FormControl isInvalid={meta.touched && meta.error}>
           <InputGroup>
             <Input
+              id={inputField.id}
               borderRadius="8px"
               border="2px solid #ccc"
               fontSize={15}
               style={inputField.inputStyles}
               placeholder={inputField.placeholder}
-              {...input}
               type={inputField.type || "text"}
+              {...input}
             />
           </InputGroup>
           {meta.touched && meta.error && (

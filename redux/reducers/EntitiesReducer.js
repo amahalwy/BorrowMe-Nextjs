@@ -8,7 +8,7 @@ import renterBookings from "./renterBookingsReducer";
 import modal from "./modalReducer.js";
 import map from "./mapReducer";
 
-export default combineReducers({
+const entitiesReducer = combineReducers({
   users,
   postings,
   requestorRequests,
@@ -18,3 +18,5 @@ export default combineReducers({
   modal,
   map,
 });
+
+export default entitiesReducer;

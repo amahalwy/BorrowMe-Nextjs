@@ -77,7 +77,7 @@ const confirmPassword: Field = {
   },
 };
 
-const SignupInputs = [
+export const signupInputs = [
   [firstName],
   [lastName],
   [address],
@@ -87,4 +87,7 @@ const SignupInputs = [
   [confirmPassword],
 ];
 
-export default SignupInputs;
+export const loginInputs = [
+  [email],
+  [password]
+]

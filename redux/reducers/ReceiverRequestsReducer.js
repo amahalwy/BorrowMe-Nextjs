@@ -5,7 +5,7 @@ import {
   CLEAR_REQUESTS,
 } from "../actions/requestActions";
 
-const ReceiverRequestsReducer = (state = {}, action) => {
+const receiverRequestsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_RECEIVER_REQUESTS:
@@ -23,4 +23,4 @@ const ReceiverRequestsReducer = (state = {}, action) => {
   }
 };
 
-export default ReceiverRequestsReducer;
+export default receiverRequestsReducer;

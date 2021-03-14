@@ -1,6 +1,6 @@
 import { OPEN_MAP, CLEAR_MAP } from "../actions/postingActions";
 
-const MapReducer = (state = {}, action) => {
+const mapReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case OPEN_MAP:
@@ -11,4 +11,4 @@ const MapReducer = (state = {}, action) => {
       return state;
   }
 };
-export default MapReducer;
+export default mapReducer;

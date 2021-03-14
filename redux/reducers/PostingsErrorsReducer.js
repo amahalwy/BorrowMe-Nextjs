@@ -5,7 +5,7 @@ import {
 
 const _nullErrors = [];
 
-const PostingsErrorsReducer = (state = _nullErrors, action) => {
+const postingsErrorsReducer = (state = _nullErrors, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_POST_ERRORS:
@@ -17,4 +17,4 @@ const PostingsErrorsReducer = (state = _nullErrors, action) => {
   }
 };
 
-export default PostingsErrorsReducer;
+export default postingsErrorsReducer;

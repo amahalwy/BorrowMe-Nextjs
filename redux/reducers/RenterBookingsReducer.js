@@ -3,7 +3,7 @@ import {
   CLEAR_BOOKINGS,
 } from "../actions/bookingActions";
 
-const RenterBookingsReducer = (state = {}, action) => {
+const renterBookingsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_RENTER_BOOKINGS:
@@ -15,4 +15,4 @@ const RenterBookingsReducer = (state = {}, action) => {
   }
 };
 
-export default RenterBookingsReducer;
+export default renterBookingsReducer;

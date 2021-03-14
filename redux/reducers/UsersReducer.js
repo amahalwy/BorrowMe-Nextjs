@@ -7,7 +7,7 @@ const initialState = {
   user: {},
 };
 
-const UsersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return {
@@ -32,4 +32,4 @@ const UsersReducer = (state = initialState, action) => {
   }
 };
 
-export default UsersReducer;
+export default usersReducer;

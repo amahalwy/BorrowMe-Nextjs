@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@chakra-ui/react";
-import { fetchPostings } from "../redux/actions/postingActions";
 import { connect } from "react-redux";
-import { useRouter } from "next/router";
+import { fetchPostings } from "../redux/actions/postingActions";
 
 // export async function getServerSideProps(context) {
 //   console.log(context);
@@ -24,6 +23,11 @@ const Home = (props) => {
   return <Box>index page</Box>;
 };
 
-export default connect((state) => {
-  return { postings: state.entities.postings, currentUser: state.session.user };
-})(Home);
+Home.getInitialProps = async ({ reduxStore }) => {
+  const postings = await reduxStore.dispatch(fetchPostings());
+  console.log(postings);
+  // return { postings: postings };
+};
+
+export default connect((state) => state)(Home);
+// return { postings: state.entities.postings, currentUser: state.session.user };

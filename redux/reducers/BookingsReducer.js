@@ -4,7 +4,7 @@ import {
   CLEAR_BOOKINGS,
 } from "../actions/booking_actions";
 
-const BookingsReducer = (state = {}, action) => {
+const bookingsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_BOOKING:
@@ -20,4 +20,4 @@ const BookingsReducer = (state = {}, action) => {
   }
 };
 
-export default BookingsReducer;
+export default bookingsReducer;

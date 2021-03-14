@@ -2,8 +2,7 @@ import { persistReducer } from "redux-persist";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import RootReducer from "../reducers/RootReducer";
-import thunkMiddleware from "redux-thunk";
+import rootReducer from "../reducers/rootReducer";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
@@ -11,13 +10,13 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, RootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export function initializeStore(initialState = {}) {
   return createStore(
     persistedReducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
+    composeWithDevTools(applyMiddleware(thunk))
   );
 }
 

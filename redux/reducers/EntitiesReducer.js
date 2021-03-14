@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import users from "./UsersReducer";
-import postings from "./PostingsReducer";
-import requestorRequests from "./RequestorRequestsReducer";
-import receiverRequests from "./ReceiverRequestsReducer";
-import ownerBookings from "./OwnerBookingsReducer";
-import renterBookings from "./RenterBookingsReducer";
-import modal from "./ModalReducer.js";
-import map from "./MapReducer";
+import users from "./usersReducer";
+import postings from "./postingsReducer";
+import requestorRequests from "./requestorRequestsReducer";
+import receiverRequests from "./receiverRequestsReducer";
+import ownerBookings from "./ownerBookingsReducer";
+import renterBookings from "./renterBookingsReducer";
+import modal from "./modalReducer.js";
+import map from "./mapReducer";
 
 export default combineReducers({
   users,

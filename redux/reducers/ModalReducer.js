@@ -3,7 +3,7 @@ import { UPDATE_SUCCESS } from "../actions/userActions";
 import { CLICK_BOOKING } from "../actions/bookingActions";
 import { CLICK_REQUEST } from "../actions/requestActions";
 
-const ModalReducer = (state = {}, action) => {
+const modalReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case CLICK_POSTING:
@@ -23,4 +23,4 @@ const ModalReducer = (state = {}, action) => {
   }
 };
 
-export default ModalReducer;
+export default modalReducer;

@@ -57,18 +57,18 @@ const clearErrs = () => ({
   type: CLEAR_POSTING_ERRORS,
 });
 
-export const fetchPosting = (postingId) => (dispatch) => {
-  APIUtil.fetchPosting(postingId)
-    .then((posting) => dispatch(receivePosting(posting)))
-    .catch((err) => dispatch(receiveErrors(err.response.data)));
-};
-
 export const fetchPostings = () => (dispatch) => {
   APIUtil.fetchPostings()
     .then((postings) => {
       dispatch(receivePostings(postings));
       return postings.data;
     })
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
+};
+
+export const fetchPosting = (postingId) => (dispatch) => {
+  APIUtil.fetchPosting(postingId)
+    .then((posting) => dispatch(receivePosting(posting)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 

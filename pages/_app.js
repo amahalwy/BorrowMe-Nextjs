@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import NavBar from "../components/NavBar";
+import { initializeStore } from "../redux/store/store";
 
 const theme = extendTheme({
   styles: {
@@ -16,7 +17,17 @@ const theme = extendTheme({
   },
   ////addd in custom breakpoints here
 });
+
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    ctx.reduxStore.dispatch({ type: "FOO", payload: "foo" });
+    const pageProps = Component.getInitialProps
+      ? await Component.getInitialProps(ctx)
+      : {};
+
+    return { pageProps };
+  }
+
   render() {
     const { Component, pageProps, reduxStore, persistor } = this.props;
     return (
@@ -31,14 +42,5 @@ class MyApp extends App {
     );
   }
 }
-
-MyApp.getInitialProps = async ({ Component, ctx }) => {
-  // we can dispatch from here too
-  ctx.reduxStore.dispatch({ type: "FOO", payload: "foo" });
-  const pageProps = Component.getInitialProps
-    ? await Component.getInitialProps(ctx)
-    : {};
-  return { pageProps };
-};
 
 export default withReduxStore(MyApp);

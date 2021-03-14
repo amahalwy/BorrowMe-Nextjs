@@ -4,7 +4,7 @@ import {
   CLEAR_POSTINGS,
 } from "../actions/postingActions";
 
-const PostingsReducer = (state = {}, action) => {
+const postingsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_POSTING:
@@ -18,4 +18,4 @@ const PostingsReducer = (state = {}, action) => {
   }
 };
 
-export default PostingsReducer;
+export default postingsReducer;

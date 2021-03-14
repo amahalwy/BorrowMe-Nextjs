@@ -2,7 +2,7 @@ import { RECEIVE_USER_ERRORS } from "../actions/userActions";
 
 const _nullErrors = [];
 
-const UsersErrorsReducer = (state = _nullErrors, action) => {
+const usersErrorsReducer = (state = _nullErrors, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_USER_ERRORS:
@@ -12,4 +12,4 @@ const UsersErrorsReducer = (state = _nullErrors, action) => {
   }
 };
 
-export default UsersErrorsReducer;
+export default usersErrorsReducer;

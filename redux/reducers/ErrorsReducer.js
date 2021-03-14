@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
-
-import SessionErrorsReducer from "./SessionErrorsReducer";
-import PostingsErrorsReducer from "./PostingsErrorsReducer";
-import RequestsErrorsReducer from "./PostingsErrorsReducer";
-import BookingsErrorsReducer from "./PostingsErrorsReducer";
-import UsersErrorsReducer from "./UsersErrorsReducer";
+import SessionErrorsReducer from "./sessionErrorsReducer";
+import PostingsErrorsReducer from "./postingsErrorsReducer";
+import RequestsErrorsReducer from "./postingsErrorsReducer";
+import BookingsErrorsReducer from "./postingsErrorsReducer";
+import UsersErrorsReducer from "./usersErrorsReducer";
 
 export default combineReducers({
   session: SessionErrorsReducer,

@@ -2,7 +2,7 @@ import { RECEIVE_REQUEST_ERRORS } from "../actions/posting_actions";
 
 const _nullErrors = [];
 
-const RequestsErrorsReducer = (state = _nullErrors, action) => {
+const requestsErrorsReducer = (state = _nullErrors, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_REQUEST_ERRORS:
@@ -12,4 +12,4 @@ const RequestsErrorsReducer = (state = _nullErrors, action) => {
   }
 };
 
-export default RequestsErrorsReducer;
+export default requestsErrorsReducer;

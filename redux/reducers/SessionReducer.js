@@ -10,7 +10,7 @@ const initialState = {
   user: {},
 };
 
-const SessionReducer = (state = initialState, action) => {
+const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
       const stateDiff = diff(state, action.payload);
@@ -38,4 +38,4 @@ const SessionReducer = (state = initialState, action) => {
   }
 };
 
-export default SessionReducer;
+export default sessionReducer;

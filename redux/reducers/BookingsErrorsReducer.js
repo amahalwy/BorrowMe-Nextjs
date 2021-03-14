@@ -2,7 +2,7 @@ import { RECEIVE_BOOKING_ERRORS } from "../actions/booking_actions";
 
 const _nullErrors = [];
 
-const BookingsErrorsReducer = (state = _nullErrors, action) => {
+const bookingsErrorsReducer = (state = _nullErrors, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_BOOKING_ERRORS:
@@ -12,4 +12,4 @@ const BookingsErrorsReducer = (state = _nullErrors, action) => {
   }
 };
 
-export default BookingsErrorsReducer;
+export default bookingsErrorsReducer;

@@ -1,12 +1,10 @@
 import { extendTheme } from "@chakra-ui/react";
+import components from "./components/index";
+import colors from "./colors";
 
 const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "rgb(0,0,0)",
-      200: "#ccc",
-    },
-  },
+  colors,
+  components,
 });
 
 export default theme;

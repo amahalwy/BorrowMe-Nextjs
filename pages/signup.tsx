@@ -59,9 +59,9 @@ const Signup: React.FC = () => {
             <RenderForm />
             <Box p="30px 0" display="flex">
               <Button
+                variant="auth-submit"
                 type="submit"
                 borderRadius="25px"
-                colorScheme="blue"
                 m="auto"
                 fontSize="1.3em"
                 width="450px"

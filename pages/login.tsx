@@ -68,8 +68,9 @@ const Login: React.FC = () => {
     <Box
       bg="white"
       m="10% auto"
+      p="5vmin"
       w={{ base: "90%", lg: "450px" }}
-      borderRadius="10px"
+      borderRadius="md"
       boxShadow="base"
       maxW={{ base: null, "450px": "450px" }}
     >
@@ -90,9 +91,9 @@ const Login: React.FC = () => {
             <RenderForm data-inputType="login"/>
             <Box p="30px 0" display="flex">
               <Button
+                variant="auth-submit"
                 type="submit"
                 borderRadius="25px"
-                colorScheme="blue"
                 m="auto"
                 fontSize="1.3em"
                 width="450px"
@@ -109,11 +110,11 @@ const Login: React.FC = () => {
               <RenderErrors errors={errors} />
             </Box>
             <Box>
-              <Text>
-                Don't have an account? yet{" "}
+              <Text w="100%" align="center">
+                Don't have an account yet?{" "}
                 <Link onClick={() => router.push("/signup")}>Sign Up</Link>
               </Text>
-            </Box>
+            </Box> 
           </form>
         )}
       />

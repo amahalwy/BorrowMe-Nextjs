@@ -4,17 +4,12 @@ import InputFields from "./InputFields";
 import { signupInputs, loginInputs } from "../generals/objects/authInputs";
 import { useRouter } from "next/router";
 
-function changeInputType(router) {
-  if (router.pathname === "/login") {
-    return loginInputs;
-  } else {
-    return signupInputs;
-  }
-}
 
 const CheckInputType = () => {
   const router = useRouter();
-  const [inputFields, setInputFields] = useState(changeInputType(router));
+  const [inputFields, setInputFields] = useState(
+    router.pathname === "/login" ? loginInputs : signupInputs
+  );
   return (
     <Box>
       {inputFields.map((element, i) => {

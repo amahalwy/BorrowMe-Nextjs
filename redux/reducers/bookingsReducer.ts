@@ -2,7 +2,7 @@ import {
   RECEIVE_BOOKING,
   REMOVE_BOOKING,
   CLEAR_BOOKINGS,
-} from "../actions/booking_actions";
+} from "../actions/bookingActions";
 
 const bookingsReducer = (state = {}, action) => {
   Object.freeze(state);

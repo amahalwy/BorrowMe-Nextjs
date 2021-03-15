@@ -1,24 +1,43 @@
 import { persistReducer } from "redux-persist";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, AnyAction, compose } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import rootReducer from "../reducers/rootReducer";
+import rootReducer from "./reducers/rootReducer";
+import appReducer from "./reducers/appReducer";
 import storage from "redux-persist/lib/storage";
+import { MakeStore, createWrapper, Context } from "next-redux-wrapper";
+import { diff } from "jsondiffpatch";
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
+// const bindMiddleware = (middleware) => {
+//   if (process.env.NODE_ENV !== "production") {
+//     return composeWithDevTools(applyMiddleware(middleware));
+//   }
+//   return applyMiddleware(middleware);
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
+// const makeStore: MakeStore = (context: Context) =>
+//   createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-export function initializeStore(initialState = {}) {
-  return createStore(
-    persistedReducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
-}
+// export const wrapper = createWrapper(makeStore, { debug: true });
+
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// export function initializeStore(initialState = {}) {
+//   return createStore(
+//     persistedReducer,
+//     initialState,
+//     composeWithDevTools(applyMiddleware(thunk))
+//   );
+// }
 
 // let store;
 // function initStore(initialState) {

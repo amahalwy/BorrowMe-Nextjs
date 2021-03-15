@@ -10,7 +10,7 @@ import { RenderErrors } from "../components/RenderErrors";
 
 const Signup: React.FC = () => {
   const router = useRouter();
-  const reduxErrors = useSelector((state) => state.errors.session);
+  // const reduxErrors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
   const [state, fetch] = useAsyncFn(async (values) => {
@@ -32,7 +32,6 @@ const Signup: React.FC = () => {
       dispatch(clearErrors());
     };
   }, []);
-
 
   return (
     <Box
@@ -84,9 +83,7 @@ const Signup: React.FC = () => {
                 Sign Up
               </Button>
             </Box>
-            <Box>
-              <RenderErrors errors={reduxErrors} />
-            </Box>
+            <Box>{/* <RenderErrors errors={reduxErrors} /> */}</Box>
             <Box>
               <Text>
                 Already have an account?{" "}

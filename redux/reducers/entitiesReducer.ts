@@ -5,7 +5,7 @@ import requestorRequests from "./requestorRequestsReducer";
 import receiverRequests from "./receiverRequestsReducer";
 import ownerBookings from "./ownerBookingsReducer";
 import renterBookings from "./renterBookingsReducer";
-import modal from "./modalReducer.js";
+import modal from "./modalReducer";
 import map from "./mapReducer";
 
 const entitiesReducer = combineReducers({

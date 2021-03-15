@@ -60,7 +60,7 @@ const clearErrs = () => ({
 export const fetchPostings = () => (dispatch) => {
   APIUtil.fetchPostings()
     .then((postings) => {
-      dispatch(receivePostings(postings));
+      // dispatch(receivePostings(postings));
       return postings.data;
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));

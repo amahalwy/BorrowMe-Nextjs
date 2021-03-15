@@ -1,4 +1,4 @@
-import { RECEIVE_BOOKING_ERRORS } from "../actions/booking_actions";
+import { RECEIVE_BOOKING_ERRORS } from "../actions/bookingActions";
 
 const _nullErrors = [];
 

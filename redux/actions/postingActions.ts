@@ -10,11 +10,17 @@ export const SUCCESS = "SUCCESS";
 export const OPEN_MAP = "OPEN_MAP";
 export const CLEAR_MAP = "CLEAR_MAP";
 export const CLEAR_POSTING_ERRORS = "CLEAR_POSTING_ERRORS";
+export const TICK = "TICK";
 
 const receivePostings = (postings) => ({
-  type: RECEIVE_POSTINGS,
+  type: TICK,
   postings,
 });
+
+// const receivePostings = (postings) => ({
+//   type: RECEIVE_POSTINGS,
+//   postings,
+// });
 
 const receivePosting = (posting) => ({
   type: RECEIVE_POSTING,
@@ -60,7 +66,7 @@ const clearErrs = () => ({
 export const fetchPostings = () => (dispatch) => {
   APIUtil.fetchPostings()
     .then((postings) => {
-      // dispatch(receivePostings(postings));
+      dispatch(receivePostings(postings));
       return postings.data;
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));

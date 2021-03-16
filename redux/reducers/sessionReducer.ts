@@ -17,8 +17,17 @@ const initialState: State = {
   user: {},
 };
 
-const sessionReducer = (state = initialState, action) => {
+const session = (state = initialState, action) => {
   switch (action.type) {
+    case HYDRATE:
+      console.log(action);
+      const stateDiff = diff(state, action.payload) as any;
+      const wasBumpedOnClient = stateDiff?.page?.[0]?.endsWith("X");
+      return {
+        ...state,
+        ...action.payload,
+        page: wasBumpedOnClient ? state.page : action.payload.page,
+      };
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
@@ -26,6 +35,8 @@ const sessionReducer = (state = initialState, action) => {
         user: action.currentUser,
       };
     case RECEIVE_USER_LOGOUT:
+      state = undefined;
+      window.localStorage.removeItem("persist:root");
       return {
         isAuthenticated: false,
         user: undefined,
@@ -37,4 +48,4 @@ const sessionReducer = (state = initialState, action) => {
   }
 };
 
-export default sessionReducer;
+export default session;

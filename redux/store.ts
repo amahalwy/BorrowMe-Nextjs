@@ -1,75 +1,48 @@
-import { persistReducer } from "redux-persist";
-import { createStore, applyMiddleware, AnyAction, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import { createWrapper } from "next-redux-wrapper";
+import thunkMiddleware from "redux-thunk";
+import rootReducer from "../redux/reducers/rootReducer";
+import { logger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers/rootReducer";
-import appReducer from "./reducers/appReducer";
-import storage from "redux-persist/lib/storage";
-import { MakeStore, createWrapper, Context } from "next-redux-wrapper";
-import { diff } from "jsondiffpatch";
+// import { createMigrate } from "redux-persist";
 
-// const bindMiddleware = (middleware) => {
-//   if (process.env.NODE_ENV !== "production") {
-//     return composeWithDevTools(applyMiddleware(middleware));
-//   }
-//   return applyMiddleware(middleware);
+const initialState = {};
+
+// const migrations = {
+//   0: (state) => initialState,
 // };
 
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
-// const makeStore: MakeStore = (context: Context) =>
-//   createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const makeConfiguredStore = (reducer) =>
+  createStore(
+    reducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
+  );
 
-// export const wrapper = createWrapper(makeStore, { debug: true });
+const makeStore = () => {
+  const isServer = typeof window === "undefined";
 
-// const persistConfig = {
-//   key: "root",
-//   storage,
-// };
+  if (isServer) {
+    return makeConfiguredStore(rootReducer);
+  } else {
+    const { persistStore, persistReducer } = require("redux-persist");
+    const storage = require("redux-persist/lib/storage").default;
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const MIGRATION_DEBUG = false;
 
-// export function initializeStore(initialState = {}) {
-//   return createStore(
-//     persistedReducer,
-//     initialState,
-//     composeWithDevTools(applyMiddleware(thunk))
-//   );
-// }
+    const persistConfig = {
+      key: "root",
+      storage,
+      // migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
+    };
 
-// let store;
-// function initStore(initialState) {
-//   return createStore(
-//     RootReducer,
-//     initialState,
-//     composeWithDevTools(applyMiddleware(thunk))
-//   );
-// }
-// export const initializeStore = (preloadedState) => {
-//   let _store = store ?? initStore(preloadedState);
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const store = makeConfiguredStore(persistedReducer);
 
-//   // After navigating to a page with an initial Redux state, merge that state
-//   // with the current state in the store, and create a new store
-//   if (preloadedState && store) {
-//     _store = initStore({
-//       ...store.getState(),
-//       ...preloadedState,
-//     });
-//     // Reset the current store
-//     store = undefined;
-//   }
+    store.__persistor = persistStore(store); // Nasty hack
 
-//   // For SSG and SSR always create a new store
-//   if (typeof window === "undefined") return _store;
-//   // Create the store once in the client
-//   if (!store) store = _store;
+    return store;
+  }
+};
 
-//   return _store;
-// };
-
-// export function useStore(initialState) {
-//   const store = useMemo(() => initializeStore(initialState), [initialState]);
-//   return store;
-// }
+export const wrapper = createWrapper(makeStore, { debug: true });

@@ -5,8 +5,8 @@ import React from "react";
 
 const LoadingComponent = () => {
   return (
-    <Box>
-      <Spinner />
+    <Box w="100%" h="100vh" fontSize={100}>
+      Loading...
     </Box>
   );
 };

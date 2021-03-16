@@ -5,7 +5,7 @@ import postingsErrorsReducer from "./postingsErrorsReducer";
 import requestsErrorsReducer from "./postingsErrorsReducer";
 import bookingsErrorsReducer from "./postingsErrorsReducer";
 
-const errorsReducer = combineReducers({
+const errors = combineReducers({
   session: sessionErrorsReducer,
   user: usersErrorsReducer,
   postings: postingsErrorsReducer,
@@ -13,4 +13,4 @@ const errorsReducer = combineReducers({
   bookings: bookingsErrorsReducer,
 });
 
-export default errorsReducer;
+export default errors;

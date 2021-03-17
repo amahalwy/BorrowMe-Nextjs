@@ -1,11 +1,14 @@
 import axios from "axios";
+import cookieCutter from "cookie-cutter";
 
 // We've been using this method in previos steps
 export const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers.common["Authorization"] = token;
+    cookieCutter.set("borrowMeBearer", token);
   } else {
     delete axios.defaults.headers.common["Authorization"];
+    cookieCutter.set("borrowMeBearer", "", { expires: new Date(0) });
   }
 };
 
@@ -14,9 +17,18 @@ export const signup = (userData) => {
 };
 
 export const login = (userData) => {
-  return axios.post("/api/users/login", userData);
+  return axios.post("http://localhost:5000/api/users/login", userData);
 };
 
 export const logout = (userId) => {
-  return axios.delete(`/api/users/${userId}`);
+  return axios.delete(`http://localhost:5000/api/users/${userId}`);
+};
+
+export const getCurrent = (token) => {
+  const fixedToken = token.slice(0, token.length).split("%20").join(" ");
+  return axios.get(`http://localhost:5000/api/users/`, {
+    headers: {
+      Authorization: fixedToken,
+    },
+  });
 };

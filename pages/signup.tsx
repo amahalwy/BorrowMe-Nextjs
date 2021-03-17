@@ -10,7 +10,7 @@ import { RenderErrors } from "../components/RenderErrors";
 
 const Signup: React.FC = () => {
   const router = useRouter();
-  const errors = useSelector((state) => state.errors.session);
+  // const reduxErrors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
   const [state, fetch] = useAsyncFn(async (values) => {
@@ -20,8 +20,7 @@ const Signup: React.FC = () => {
 
   const onSubmit = (values) => {
     fetch(values).then((res) => {
-      if (res.data.success) {
-        console.log("yepp");
+      if (res.status !== 400) {
         router.push("/home");
       }
       return null;
@@ -32,8 +31,7 @@ const Signup: React.FC = () => {
     return () => {
       dispatch(clearErrors());
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, []);
 
   return (
     <Box
@@ -43,12 +41,23 @@ const Signup: React.FC = () => {
       maxW={{ base: null, "450px": "450px" }}
     >
       <Box>
-        <Heading fontSize={25} textAlign="center" padding="5%">
+        <Heading
+          fontSize={{ base: 25, lg: 40 }}
+          textAlign="center"
+          padding="5%"
+        >
           Sign Up for BorrowMe
         </Heading>
       </Box>
       <Form
         onSubmit={onSubmit}
+        validate={(values) => {
+          const errors: any = {};
+          if (values.confirmPassword !== values.password) {
+            errors.confirmPassword = "Must match";
+          }
+          return errors;
+        }}
         render={({
           handleSubmit,
           submitting,
@@ -74,9 +83,7 @@ const Signup: React.FC = () => {
                 Sign Up
               </Button>
             </Box>
-            <Box>
-              <RenderErrors errors={errors} />
-            </Box>
+            <Box>{/* <RenderErrors errors={reduxErrors} /> */}</Box>
             <Box>
               <Text>
                 Already have an account?{" "}

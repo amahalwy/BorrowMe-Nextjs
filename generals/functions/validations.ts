@@ -1,15 +1,15 @@
 import * as EmailValidator from "email-validator";
-export const required = (value: string) => (value ? undefined : "Required");
-export const requiredAndEmail = (value: string) =>
+const required = (value: string) => (value ? undefined : "Required");
+const requiredAndEmail = (value: string) =>
   EmailValidator.validate(value) ? undefined : "Invalid Email Address";
-export const requiredAndPassword = (value: string) =>
+const requiredAndPassword = (value: string) =>
   value && value.length >= 6 ? undefined : "Password Too Short";
-export const requiredAndZipcode = (value: string) =>
+const requiredAndZipcode = (value: string) =>
   value && value.length === 5 ? undefined : "Incorrect Format (XXXXX)";
 
-export const requiredAndString = (value: string) => {
+const requiredAndString = (value: string) => {
   if (!value) {
-    return "Required";
+    return `Required`;
   } else {
     if (value.match("^[a-zA-Z]+$")) {
       return undefined;
@@ -37,5 +37,3 @@ export const returnValidation = (value: string) => {
     return required;
   }
 };
-
-EmailValidator.validate("test@email.com"); // true

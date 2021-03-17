@@ -23,7 +23,8 @@
     "pages/login.jsx",
     "pages/hello.tsx",
     "components/Trial.tsx",
-    "components/signupinputs.ts"
+    "components/signupinputs.ts",
+    "pages/_app.tsx"
   ],
   "exclude": ["node_modules"]
 }

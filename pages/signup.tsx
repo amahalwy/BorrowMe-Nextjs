@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
   }, []);
 
   const onSubmit = (values) => {
-    fetch(values).then((res) => {
+    fetch(values).then((res: any) => {
       if (res.status !== 400) {
         router.push("/home");
       }

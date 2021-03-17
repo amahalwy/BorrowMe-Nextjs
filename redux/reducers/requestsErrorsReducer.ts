@@ -1,4 +1,4 @@
-import { RECEIVE_REQUEST_ERRORS } from "../actions/posting_actions";
+import { RECEIVE_REQUEST_ERRORS } from "../actions/requestActions";
 
 const _nullErrors = [];
 

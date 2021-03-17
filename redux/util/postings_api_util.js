@@ -5,7 +5,9 @@ export const fetchPostings = () => {
 };
 
 export const fetchPosting = (postingId) => {
-  return axios.get(`/api/postings/${postingId}`);
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/api/postings/${postingId}`
+  );
 };
 
 export const fetchUserPostings = (ownerId) => {

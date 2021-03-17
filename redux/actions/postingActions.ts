@@ -13,14 +13,9 @@ export const CLEAR_POSTING_ERRORS = "CLEAR_POSTING_ERRORS";
 export const TICK = "TICK";
 
 const receivePostings = (postings) => ({
-  type: TICK,
+  type: RECEIVE_POSTINGS,
   postings,
 });
-
-// const receivePostings = (postings) => ({
-//   type: RECEIVE_POSTINGS,
-//   postings,
-// });
 
 const receivePosting = (posting) => ({
   type: RECEIVE_POSTING,

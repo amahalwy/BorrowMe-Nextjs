@@ -20,7 +20,6 @@ const initialState: State = {
 const session = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
-      console.log(action);
       const stateDiff = diff(state, action.payload) as any;
       const wasBumpedOnClient = stateDiff?.page?.[0]?.endsWith("X");
       return {

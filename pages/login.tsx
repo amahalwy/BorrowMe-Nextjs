@@ -1,27 +1,28 @@
 import React from "react";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
-import axios from "axios";
 import { useSelector, useDispatch, connect } from "react-redux";
 import RenderForm from "../components/RenderForm";
 import { useRouter } from "next/router";
 import { clearErrors, login } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
 import { RenderErrors } from "../components/RenderErrors";
+import { NextPage } from "next";
 
-const Login: React.FC = (props) => {
+const Login: NextPage = (props) => {
   const router = useRouter();
-  const errors = useSelector((state) => state.errors.session);
+  // const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
   const [state, fetch] = useAsyncFn(async (values) => {
     const response = await dispatch(login(values));
-    return await response;
+    return response;
   }, []);
 
   const onSubmit = (values) => {
-    fetch(values).then((res) => {
-      if (res.data.success) {
+    fetch(values).then((res: any) => {
+      console.log(res);
+      if (res.success) {
         router.push("/home");
       }
       return null;
@@ -33,7 +34,12 @@ const Login: React.FC = (props) => {
       email: "demo@demo.com",
       password: "demo1234",
     };
-    dispatch(login(demopassword));
+    fetch(demopassword).then((res: any) => {
+      if (res.success) {
+        router.push("/home");
+      }
+      return null;
+    });
   };
 
   React.useEffect(() => {

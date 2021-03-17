@@ -4,22 +4,23 @@ import thunkMiddleware from "redux-thunk";
 import rootReducer from "../redux/reducers/rootReducer";
 import { logger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { PersistConfig } from "../typescript/interfaces";
 // import { createMigrate } from "redux-persist";
-
-const initialState = {};
-
 // const migrations = {
 //   0: (state) => initialState,
 // };
+
+const initialState = {};
 
 const makeConfiguredStore = (reducer) =>
   createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
+    // composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
   );
 
-const makeStore = () => {
+export const makeStore = () => {
   const isServer = typeof window === "undefined";
 
   if (isServer) {
@@ -27,17 +28,16 @@ const makeStore = () => {
   } else {
     const { persistStore, persistReducer } = require("redux-persist");
     const storage = require("redux-persist/lib/storage").default;
-
-    const MIGRATION_DEBUG = false;
-
-    const persistConfig = {
+    const persistConfig: PersistConfig = {
       key: "root",
       storage,
       // migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
     };
 
+    const MIGRATION_DEBUG = false;
+
     const persistedReducer = persistReducer(persistConfig, rootReducer);
-    const store = makeConfiguredStore(persistedReducer);
+    const store: any = makeConfiguredStore(persistedReducer);
 
     store.__persistor = persistStore(store); // Nasty hack
 

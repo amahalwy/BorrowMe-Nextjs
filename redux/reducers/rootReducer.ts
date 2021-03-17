@@ -5,14 +5,12 @@ import appReducer from "./appReducer";
 const rootReducer = (state, action) => {
   switch (action.type) {
     case HYDRATE:
-      console.log(action);
-      const stateDiff = diff(state, action.payload) as any;
-      const wasBumpedOnClient = stateDiff?.page?.[0]?.endsWith("X");
-      return {
-        ...state,
-        ...action.payload,
-        page: wasBumpedOnClient ? state.page : action.payload.page,
+      const nextState = {
+        ...state, // use previous state
+        ...action.payload, // apply delta from hydration
       };
+      if (state.count) nextState.count = state.count; // preserve count value on client side navigation
+      return nextState;
     default:
       return appReducer(state, action);
   }

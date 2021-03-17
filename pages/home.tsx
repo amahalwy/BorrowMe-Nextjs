@@ -1,30 +1,51 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Spinner } from "@chakra-ui/react";
-import { connect } from "react-redux";
+import { useStore, connect } from "react-redux";
 import { NextPage } from "next";
 import { fetchPostings } from "../redux/util/postings_api_util";
 import {
   RECEIVE_POSTINGS,
   clearPostings,
 } from "../redux/actions/postingActions";
-import { wrapper } from "../redux/store";
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store }) => {
-    const request = await fetchPostings();
-    const postings = await request.data;
-    store.dispatch({ type: RECEIVE_POSTINGS, postings });
-  }
-);
+import { NextPageContext } from "next";
+import PostingsIndex from "../components/PostingsIndex";
+import SearchBar from "../components/SearchBar";
+import { CLEAR_MODAL } from "../redux/actions/bookingActions";
+import { CurrentUser } from "../typescript/interfaces";
 
-const Home: NextPage = (props) => {
-  const dispatch = useDispatch();
+interface HomeProps {
+  postings: {};
+  currentUser: CurrentUser;
+  pathname: string;
+  dispatch: (r) => void;
+}
 
-  React.useEffect(() => {
-    return () => dispatch(clearPostings());
-  }, []);
-  return <Box></Box>;
+const Home: NextPage = () => {
+  return (
+    <Box>
+      <Box w="90%" m="4% auto">
+        <SearchBar />
+      </Box>
+      <PostingsIndex
+      // filterList={filterList}
+      // hideModal={hideModal}
+      // showModal={showModal}
+      />
+    </Box>
+  );
 };
 
-export default Home;
+Home.getInitialProps = async ({ store }: NextPageContext) => {
+  const request = await fetchPostings();
+  const postings = await request.data;
+  store.dispatch({ type: RECEIVE_POSTINGS, postings });
+  return {};
+};
+
+const mSTP = (state) => ({
+  currentUser: state.session.user,
+});
+
+export default connect(mSTP)(Home);

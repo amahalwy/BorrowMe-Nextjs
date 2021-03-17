@@ -6,16 +6,18 @@ import { Box, Button } from "@chakra-ui/react";
 import { useDispatch, connect } from "react-redux";
 import { clearModal } from "../redux/actions/postingActions";
 
+Date.prototype.addDays = function (days: number) {
+  let date: Date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
+
 const Calendar = ({ modalPosting, currentUser }) => {
   const dispatch = useDispatch();
-  Date.prototype.addDays = function (days) {
-    let date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
 
-  const handleSelect = (ranges) => {
-    console.log(ranges);
+  const handleSelect = () => {
+    const dates = getDates();
+    console.log(dates);
   };
 
   const selectionRange = {
@@ -60,7 +62,7 @@ const Calendar = ({ modalPosting, currentUser }) => {
       </Box>
       <Box>
         {modalPosting.ownerId !== currentUser.id ? (
-          <Button>Create Request</Button>
+          <Button onClick={handleSelect}>Create Request</Button>
         ) : null}
         <Button
           colorScheme="blue"

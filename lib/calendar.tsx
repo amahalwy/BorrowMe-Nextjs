@@ -6,13 +6,14 @@ import { Box, Button } from "@chakra-ui/react";
 import { useDispatch, connect } from "react-redux";
 import { clearModal } from "../redux/actions/postingActions";
 
-Date.prototype.addDays = function (days: number) {
-  let date: Date = new Date(this.valueOf());
-  date.setDate(date.getDate() + days);
-  return date;
-};
+// Date.prototype.addDays = function (days: number) {
+//   let date: Date = new Date(this.valueOf());
+//   date.setDate(date.getDate() + days);
+//   return date;
+// };
 
 const Calendar = ({ modalPosting, currentUser }) => {
+  return null; //Needs further testing for Date.addDays function => TypeError when building
   const dispatch = useDispatch();
 
   const handleSelect = () => {

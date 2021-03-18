@@ -11,7 +11,6 @@ import SearchBar from "../components/SearchBar";
 import { HomeProps } from "../typescript/pages";
 
 const Home: NextPage<HomeProps> = ({ isAuthenticated }) => {
-  console.log(isAuthenticated);
   const router = useRouter();
   if (!isAuthenticated) router.push("/login");
   return (

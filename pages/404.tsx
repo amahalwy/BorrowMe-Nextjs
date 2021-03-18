@@ -1,15 +1,20 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
-import { useRouter } from "next/router";
+
+export async function getStaticProps(context) {
+  return {
+    redirect: {
+      destination: "/home",
+      permanent: false,
+    },
+  };
+}
 
 const Custom404 = () => {
-  const router = useRouter();
-
-  React.useEffect(() => {
-    router.replace("/login");
-  });
-
-  return <Box>404 - Page Not Found</Box>;
+  return (
+    <>
+      <h1>404 - Page Not Found</h1>
+    </>
+  );
 };
 
 export default Custom404;

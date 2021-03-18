@@ -52,8 +52,9 @@ const Login: NextPage = (props) => {
     <Box
       bg="white"
       m="10% auto"
+      p="5vmin"
       w={{ base: "90%", lg: "450px" }}
-      borderRadius="10px"
+      borderRadius="md"
       boxShadow="base"
       maxW={{ base: null, "450px": "450px" }}
     >
@@ -72,35 +73,31 @@ const Login: NextPage = (props) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <RenderForm data-inputType="login" />
-            <Box p="30px 0">
-              <Box>
-                <Button
-                  type="submit"
-                  borderRadius="25px"
-                  colorScheme="blue"
-                  m="auto"
-                  fontSize="1.3em"
-                  width="450px"
-                  disabled={
-                    hasValidationErrors ||
-                    pristine ||
-                    submitting ||
-                    state.loading
-                  }
-                  isLoading={state.loading}
-                  loadingText="Creating User"
-                >
-                  Login
-                </Button>
-              </Box>
-              <Box>
-                <Button onClick={() => trialLogin()}>Demo Login</Button>
-              </Box>
+            <Box p="30px 0" display="flex">
+              <Button
+                colorScheme="blue"
+                variant="auth-submit"
+                type="submit"
+                borderRadius="25px"
+                m="auto"
+                fontSize="1.3em"
+                width="450px"
+                disabled={
+                  hasValidationErrors || pristine || submitting || state.loading
+                }
+                isLoading={state.loading}
+                loadingText="Creating User"
+              >
+                Login
+              </Button>
+            </Box>
+            <Box>
+              <Button onClick={() => trialLogin()}>Demo Login</Button>
             </Box>
             <Box>{/* <RenderErrors errors={errors} /> */}</Box>
             <Box>
-              <Text>
-                Don't have an account? yet{" "}
+              <Text w="100%" align="center">
+                Don't have an account yet?{" "}
                 <Link onClick={() => router.push("/signup")}>Sign Up</Link>
               </Text>
             </Box>

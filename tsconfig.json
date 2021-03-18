@@ -14,17 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "pages/login.jsx",
-    "pages/login.jsx",
-    "pages/login.jsx",
-    "pages/hello.tsx",
-    "components/Trial.tsx",
-    "components/signupinputs.ts",
-    "pages/_app.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages", "components"],
   "exclude": ["node_modules"]
 }

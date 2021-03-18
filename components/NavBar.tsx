@@ -48,10 +48,7 @@ const LoggedIn = () => {
       </Box>
       <Box w="25%" d="flex" alignItems="center" justifyContent="center">
         <Button
-          onClick={() => {
-            dispatch(logout());
-            router.push("/login");
-          }}
+          onClick={() => dispatch(logout())}
           style={buttonStyles}
           _hover={{ border: "1px solid red" }}
         >

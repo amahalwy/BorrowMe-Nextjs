@@ -2,6 +2,7 @@ import React from "react";
 
 export async function getStaticProps(context) {
   return {
+    props: {},
     redirect: {
       destination: "/home",
       permanent: false,

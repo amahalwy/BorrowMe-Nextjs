@@ -1,4 +1,4 @@
-import * as APIUtil from "../util/booking_api_util";
+import * as APIUtil from "../util/bookingApiUtil";
 
 export const RECEIVE_BOOKING = "RECEIVE_BOOKING";
 export const RECEIVE_OWNER_BOOKINGS = "RECEIVE_OWNER_BOOKINGS";
@@ -40,18 +40,18 @@ const clear = () => ({
 });
 
 const clearMod = () => ({
-  type: CLEAR_MODAL
-})
+  type: CLEAR_MODAL,
+});
 
 const click = (booking) => ({
   type: CLICK_BOOKING,
-  booking
+  booking,
 });
 
-const successBooking = status => ({
+const successBooking = (status) => ({
   type: SUCCESS,
-  status
-})
+  status,
+});
 
 export const fetchBooking = (bookingId) => (dispatch) => {
   APIUtil.fetchBooking(bookingId)
@@ -90,11 +90,11 @@ export const clearBookings = () => (dispatch) => {
   dispatch(clear());
 };
 
-export const clickBooking = bookingId => dispatch => {
+export const clickBooking = (bookingId) => (dispatch) => {
   APIUtil.fetchBooking(bookingId)
     .then((booking) => dispatch(click(booking)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
-}
+};
 
 export const clearModal = () => (dispatch) => {
   dispatch(clearMod());

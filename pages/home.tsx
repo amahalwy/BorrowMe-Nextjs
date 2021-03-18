@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Spinner } from "@chakra-ui/react";
 import { useStore, connect } from "react-redux";
 import { NextPage } from "next";
-import { fetchPostings } from "../redux/util/postings_api_util";
+import { fetchPostings } from "../redux/util/postingsApiUtil";
 import {
   RECEIVE_POSTINGS,
   clearPostings,

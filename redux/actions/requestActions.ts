@@ -1,4 +1,4 @@
-import * as APIUtil from "../util/request_api_util";
+import * as APIUtil from "../util/requestApiUtil";
 
 export const RECEIVE_RECEIVER_REQUESTS = "RECEIVE_RECEIVER_REQUESTS";
 export const RECEIVE_REQUESTOR_REQUESTS = "RECEIVE_REQUESTOR_REQUESTS";
@@ -20,42 +20,42 @@ const receiveRequestorRequests = (requests) => ({
   requests,
 });
 
-const receiveRequest = request => ({
+const receiveRequest = (request) => ({
   type: RECEIVE_REQUEST,
   request,
 });
 
-const removeRequest = requestId => ({
+const removeRequest = (requestId) => ({
   type: REMOVE_REQUEST,
-  requestId
-})
+  requestId,
+});
 
-const receiveErrors = errors => ({
+const receiveErrors = (errors) => ({
   type: RECEIVE_REQUEST_ERRORS,
   errors,
 });
 
 const clear = () => ({
-  type: CLEAR_REQUESTS
-})
+  type: CLEAR_REQUESTS,
+});
 
 const clearMod = () => ({
-  type: CLEAR_MODAL
-})
+  type: CLEAR_MODAL,
+});
 
 const click = (request) => ({
   type: CLICK_REQUEST,
-  request
+  request,
 });
 
-const successRequest = status => ({
+const successRequest = (status) => ({
   type: SUCCESS,
-  status
-})
+  status,
+});
 
-export const fetchRequest = requestId => dispatch => {
+export const fetchRequest = (requestId) => (dispatch) => {
   APIUtil.fetchRequest(requestId)
-    .then(request => dispatch(receiveRequest(request)))
+    .then((request) => dispatch(receiveRequest(request)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
@@ -71,30 +71,30 @@ export const fetchRequestorRequests = (userId) => (dispatch) => {
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const createRequest = request => dispatch => {
+export const createRequest = (request) => (dispatch) => {
   APIUtil.createRequest(request)
-    .then(request => {
-      dispatch(receiveRequest(request))
-      dispatch(successRequest(request.status))
+    .then((request) => {
+      dispatch(receiveRequest(request));
+      dispatch(successRequest(request.status));
     })
-    .catch(err => dispatch(receiveErrors(err.response.data)));
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const deleteRequest = requestId => dispatch => {
+export const deleteRequest = (requestId) => (dispatch) => {
   APIUtil.deleteRequest(requestId)
     .then(() => dispatch(removeRequest(requestId)))
-    .catch(err => dispatch(receiveErrors(err.response.data)));
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const clearRequests = () => dispatch => {
-  dispatch(clear())
-}
+export const clearRequests = () => (dispatch) => {
+  dispatch(clear());
+};
 
-export const clickRequest = requestId => dispatch => {
+export const clickRequest = (requestId) => (dispatch) => {
   APIUtil.fetchRequest(requestId)
-    .then(request => dispatch(click(request)))
+    .then((request) => dispatch(click(request)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
-}
+};
 
 export const clearModal = () => (dispatch) => {
   dispatch(clearMod());

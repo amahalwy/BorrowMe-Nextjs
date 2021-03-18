@@ -1,4 +1,4 @@
-import * as APIUtil from "../util/user_api_util";
+import * as APIUtil from "../util/userApiUtil";
 
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
@@ -15,27 +15,27 @@ const update = (user) => ({
   user,
 });
 
-const receiveErrors = errors => ({
+const receiveErrors = (errors) => ({
   type: RECEIVE_USER_ERRORS,
-  errors
-})
+  errors,
+});
 
-const successUpdate = status => ({
+const successUpdate = (status) => ({
   type: UPDATE_SUCCESS,
-  status
-})
+  status,
+});
 
-export const fetchUser = userId => dispatch => {
+export const fetchUser = (userId) => (dispatch) => {
   APIUtil.fetchUser(userId)
-    .then(user => dispatch(receiveUser(user.data)))
-    .catch(err => dispatch(receiveErrors(err.response.data)));
-}
+    .then((user) => dispatch(receiveUser(user.data)))
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
+};
 
-export const updateUser = (userId, formData) => dispatch => {
+export const updateUser = (userId, formData) => (dispatch) => {
   APIUtil.updateUser(userId, formData)
     .then((user) => {
       dispatch(update(user.data));
       dispatch(successUpdate(user.status));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
-}
+};

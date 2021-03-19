@@ -36,7 +36,7 @@ const Selection: React.FC<{
     setShowSelection(value);
   };
   return (
-    <Tabs>
+    <Tabs mb="10px">
       <TabList>
         <Tab onClick={() => handleSelect("calendar")}>Calendar</Tab>
         <Tab onClick={() => handleSelect("map")}>Map</Tab>
@@ -59,18 +59,31 @@ const PostingCalendar: React.FC<PostingCalendarProps> = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={() => dispatch(clearModal())}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setShowSelection("calendar");
+          dispatch(clearModal());
+        }}
+        // size="xl"
+      >
         <ModalOverlay />
-        <ModalContent w="90%">
+        <ModalContent w={{ base: "90%", lg: "100%" }}>
           <ModalHeader fontSize={28}>{modalPosting.title}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody p="0 5%">
+          <ModalBody p="0 5%" h="100px">
             <AddressSection modalPosting={modalPosting} />
             <Selection
               showSelection={showSelection}
               setShowSelection={setShowSelection}
             />
-            <Box>{showSelection === "calendar" ? <Calendar /> : <Map />}</Box>
+            <Box d="flex" justifyContent="center">
+              {showSelection === "calendar" ? (
+                <Calendar setShowSelection={setShowSelection} />
+              ) : (
+                <Map />
+              )}
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -1,21 +1,92 @@
-import { Box, Button, Heading, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from "@chakra-ui/react";
 import React from "react";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { connect, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { NavBarMenuProps } from "../typescript/components";
 
-const buttonStyles = {
-  borderRadius: "25px",
-  border: "2px solid white",
-  background: "#a2d3c2",
-  color: "#fff",
-  font: "bold",
-  padding: "5px 15px",
+const NavBarLogo: React.FC<{ router: NextRouter }> = ({ router }) => {
+  return (
+    <Box w="85%" ml="4%">
+      <Box h="100%" d="flex" alignItems="center">
+        <Box
+          w={{ base: "15%", lg: "5%" }}
+          h={{ base: "70%", lg: "90%" }}
+          borderRadius="10px"
+          _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
+          onClick={() => router.push("/home")}
+        >
+          <Image
+            w="100%"
+            h="100%"
+            src="https://borrowme-pro.s3.us-east-2.amazonaws.com/icons/bm-logo.png"
+          />
+        </Box>
+      </Box>
+    </Box>
+  );
 };
 
-const LoggedIn = () => {
+const NavBarMenu: React.FC<NavBarMenuProps> = ({
+  router,
+  isAuthenticated,
+  isMenuOpen,
+  setIsMenuOpen,
+  logoutUser,
+}) => {
+  return (
+    <Box w="15%" d="flex" alignItems="center" justifyContent="center">
+      <Menu isLazy onClose={() => setIsMenuOpen(!isMenuOpen)}>
+        <MenuButton
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          as={IconButton}
+          aria-label="Options"
+          icon={
+            !isMenuOpen ? (
+              <HamburgerIcon fontSize={18} />
+            ) : (
+              <CloseIcon fontSize={12} />
+            )
+          }
+          size="sm"
+          variant="outline"
+          bg="white"
+        />
+        {!isAuthenticated ? (
+          <MenuList zIndex={2}>
+            <MenuItem onClick={() => router.push("/landing")}>Landing</MenuItem>
+            <MenuItem onClick={() => router.push("/signup")}>Signup</MenuItem>
+            <MenuItem onClick={() => router.push("/login")}>Login</MenuItem>
+          </MenuList>
+        ) : (
+          <MenuList>
+            <MenuItem onClick={() => router.push("/landing")}>Landing</MenuItem>
+            <MenuItem onClick={() => router.push("/home")}>Home</MenuItem>
+            <MenuItem onClick={logoutUser}>Logout</MenuItem>
+          </MenuList>
+        )}
+      </Menu>
+    </Box>
+  );
+};
+
+const NavBar: React.FC<{ isAuthenticated: boolean }> = ({
+  isAuthenticated,
+}) => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
   const [state, fetch] = useAsyncFn(async () => {
     const response = await dispatch(logout());
     return response;
@@ -25,103 +96,18 @@ const LoggedIn = () => {
     fetch().then(() => router.push("/login"));
   };
 
-  const dispatch = useDispatch();
   return (
     <Box w="100%" d="flex" h="66px" bg="#a2d3c2" shadow="xl">
-      <Box w="75%">
-        <Box
-          w="17%"
-          ml="6%"
-          h="100%"
-          d="flex"
-          alignItems="center"
-          justifyContent="space-around"
-        >
-          <Box
-            w="25%"
-            h="90%"
-            borderRadius="10px"
-            _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
-          >
-            <Image
-              w="100%"
-              h="100%"
-              src="https://borrowme-pro.s3.us-east-2.amazonaws.com/icons/bm-logo.png"
-            />
-          </Box>
-          <Box>
-            <Heading color="white" as="h2" fontSize={30} fontWeight="bold">
-              BorrowMe
-            </Heading>
-          </Box>
-        </Box>
-      </Box>
-      <Box w="25%" d="flex" alignItems="center" justifyContent="center">
-        <Button
-          onClick={logoutUser}
-          style={buttonStyles}
-          _hover={{ border: "1px solid red" }}
-        >
-          Logout
-        </Button>
-      </Box>
+      <NavBarLogo router={router} />
+      <NavBarMenu
+        isAuthenticated={isAuthenticated}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        logoutUser={logoutUser}
+        router={router}
+      />
     </Box>
   );
-};
-
-const LoggedOut = () => {
-  const router = useRouter();
-  return (
-    <Box w="100%" d="flex" h="66px" bg="#a2d3c2" shadow="xl">
-      <Box w="75%">
-        <Box
-          w="17%"
-          ml="6%"
-          h="100%"
-          d="flex"
-          alignItems="center"
-          justifyContent="space-around"
-        >
-          <Box
-            w="25%"
-            h="90%"
-            borderRadius="10px"
-            _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
-          >
-            <Image
-              w="100%"
-              h="100%"
-              src="https://borrowme-pro.s3.us-east-2.amazonaws.com/icons/bm-logo.png"
-            />
-          </Box>
-          <Box>
-            <Heading color="white" as="h2" fontSize={30} fontWeight="bold">
-              BorrowMe
-            </Heading>
-          </Box>
-        </Box>
-      </Box>
-      <Box
-        pr="10%"
-        ml="5%"
-        w="20%"
-        d="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Button onClick={() => router.push("/signup")} style={buttonStyles}>
-          Signup
-        </Button>
-        <Button onClick={() => router.push("/login")} style={buttonStyles}>
-          Login
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-
-const NavBar = (props) => {
-  return <>{props.isAuthenticated ? <LoggedIn /> : <LoggedOut />}</>;
 };
 
 const mSTP = (state) => ({

@@ -2,12 +2,12 @@ import React from "react";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
 import { useDispatch, connect } from "react-redux";
-import RenderForm from "../components/RenderForm";
 import { useRouter } from "next/router";
 import { clearErrors, login } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
 import { RenderErrors } from "../components/RenderErrors";
 import { NextPage } from "next";
+import RenderLoginInputs from "../components/RenderLoginInputs";
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -51,11 +51,10 @@ const Login: NextPage = () => {
     <Box
       bg="white"
       m="10% auto"
-      p="5vmin"
       w={{ base: "90%", lg: "450px" }}
       borderRadius="md"
-      boxShadow="base"
       maxW={{ base: null, "450px": "450px" }}
+      boxShadow="0 3px 3px #888"
     >
       <Box>
         <Heading fontSize={25} textAlign="center" padding="5%">
@@ -71,34 +70,46 @@ const Login: NextPage = () => {
           hasValidationErrors,
         }) => (
           <form onSubmit={handleSubmit}>
-            <RenderForm data-inputType="login" />
-            <Box p="30px 0" display="flex">
-              <Button
-                colorScheme="blue"
-                variant="auth-submit"
-                type="submit"
-                borderRadius="25px"
-                m="auto"
-                fontSize="1.3em"
-                width="450px"
-                disabled={
-                  hasValidationErrors || pristine || submitting || state.loading
-                }
-                isLoading={state.loading}
-                loadingText="Creating User"
-              >
-                Login
-              </Button>
-            </Box>
-            <Box>
-              <Button onClick={() => trialLogin()}>Demo Login</Button>
-            </Box>
-            <Box>{/* <RenderErrors errors={errors} /> */}</Box>
-            <Box>
-              <Text w="100%" align="center">
-                Don't have an account yet?{" "}
-                <Link onClick={() => router.push("/signup")}>Sign Up</Link>
-              </Text>
+            <Box w="92%" m="0 auto" pb="4%">
+              <RenderLoginInputs />
+
+              <Box p="30px 0">
+                <Button
+                  variant="auth-login"
+                  type="submit"
+                  disabled={
+                    hasValidationErrors ||
+                    pristine ||
+                    submitting ||
+                    state.loading
+                  }
+                  isLoading={state.loading}
+                >
+                  Login
+                </Button>
+                <Button
+                  variant="auth-login"
+                  type="submit"
+                  disabled={submitting || state.loading}
+                  isLoading={state.loading}
+                  onClick={() => trialLogin()}
+                >
+                  Demo Login
+                </Button>
+              </Box>
+              <Box>{/* <RenderErrors errors={errors} /> */}</Box>
+              <Box>
+                <Text w="100%" align="center">
+                  Don't have an account yet?{" "}
+                  <Link
+                    onClick={() => router.push("/signup")}
+                    color="blue"
+                    fontStyle="italic"
+                  >
+                    Sign Up
+                  </Link>
+                </Text>
+              </Box>
             </Box>
           </form>
         )}

@@ -28,17 +28,7 @@ const city: Field = {
   id: "city",
   placeholder: "City",
   inputStyles: {
-    width: "95%",
-    marginRight: "5%",
-  },
-};
-
-const zipCode: Field = {
-  id: "zipCode",
-  placeholder: "Zip Code",
-  inputStyles: {
-    width: "94%",
-    margin: "0 3%",
+    width: "100%",
   },
 };
 
@@ -46,8 +36,16 @@ const state: Field = {
   id: "state",
   placeholder: "State",
   inputStyles: {
-    width: "95%",
-    marginLeft: "5%",
+    width: "100%",
+    margin: "0 4%",
+  },
+};
+
+const zipCode: Field = {
+  id: "zipCode",
+  placeholder: "Zip",
+  inputStyles: {
+    width: "100%",
   },
 };
 
@@ -81,10 +79,10 @@ export const signupInputs = [
   [firstName],
   [lastName],
   [address],
-  [city, zipCode, state],
+  [city, state, zipCode],
   [email],
   [password],
   [confirmPassword],
 ];
 
-export const loginInputs = [[email], [password]];
+export const loginInputs = [email, password];

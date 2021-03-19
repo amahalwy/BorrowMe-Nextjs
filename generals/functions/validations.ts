@@ -1,6 +1,6 @@
 import * as EmailValidator from "email-validator";
-const required = (value: string) => (value ? undefined : "Required");
-const requiredAndEmail = (value: string) =>
+export const required = (value: string) => (value ? undefined : "Required");
+export const requiredAndEmail = (value: string) =>
   EmailValidator.validate(value) ? undefined : "Invalid Email Address";
 const requiredAndPassword = (value: string) =>
   value && value.length >= 6 ? undefined : "Password Too Short";

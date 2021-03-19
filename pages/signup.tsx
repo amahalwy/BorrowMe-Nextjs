@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
-import RenderForm from "../components/RenderForm";
+import RenderForm from "../components/RenderSignupInputs";
 import { useRouter } from "next/router";
 import { signup, clearErrors } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
@@ -36,9 +36,10 @@ const Signup: React.FC = () => {
   return (
     <Box
       bg="white"
-      m="10% auto"
+      m="6% auto"
       w={{ base: "90%", lg: "450px" }}
-      maxW={{ base: null, "450px": "450px" }}
+      borderRadius="md"
+      boxShadow="0 3px 3px #888"
     >
       <Box>
         <Heading
@@ -65,30 +66,44 @@ const Signup: React.FC = () => {
           hasValidationErrors,
         }) => (
           <form onSubmit={handleSubmit}>
-            <RenderForm />
-            <Box p="30px 0" display="flex">
-              <Button
-                variant="auth-submit"
-                type="submit"
-                borderRadius="25px"
-                m="auto"
-                fontSize="1.3em"
-                width="450px"
-                disabled={
-                  hasValidationErrors || pristine || submitting || state.loading
-                }
-                isLoading={state.loading}
-                loadingText="Creating User"
-              >
-                Sign Up
-              </Button>
-            </Box>
-            <Box>{/* <RenderErrors errors={reduxErrors} /> */}</Box>
-            <Box>
-              <Text>
-                Already have an account?{" "}
-                <Link onClick={() => router.push("/login")}>Log in</Link>
-              </Text>
+            <Box w="92%" m="0 auto" pb="4%">
+              <RenderForm />
+
+              <Box p="10px 0">
+                <Box mb="10px">
+                  <Text fontSize={14}>* = Required Fields</Text>
+                  <Text fontSize={14}>Zip format (XXXXX)</Text>
+                </Box>
+                <Box p="10px 0">
+                  <Button
+                    variant="auth-signup"
+                    type="submit"
+                    disabled={
+                      hasValidationErrors ||
+                      pristine ||
+                      submitting ||
+                      state.loading
+                    }
+                    isLoading={state.loading}
+                    loadingText="Creating User"
+                  >
+                    Sign Up
+                  </Button>
+                </Box>
+              </Box>
+              <Box>{/* <RenderErrors errors={reduxErrors} /> */}</Box>
+              <Box>
+                <Text>
+                  Already have an account?{" "}
+                  <Link
+                    onClick={() => router.push("/login")}
+                    color="blue"
+                    fontStyle="italic"
+                  >
+                    Log in
+                  </Link>
+                </Text>
+              </Box>
             </Box>
           </form>
         )}

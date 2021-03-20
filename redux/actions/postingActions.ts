@@ -1,5 +1,4 @@
 import * as APIUtil from "../util/postingsApiUtil";
-
 export const RECEIVE_POSTINGS = "RECEIVE_POSTINGS";
 export const RECEIVE_POSTING = "RECEIVE_POSTING";
 export const RECEIVE_POST_ERRORS = "RECEIVE_POST_ERRORS";

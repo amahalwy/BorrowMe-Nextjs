@@ -2,8 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import Link from "next/link";
 import { Text, Box, Heading } from "@chakra-ui/react";
+import { NextPage } from "next";
 
-const Custom404 = ({ isAuthenticated }) => {
+const Custom404: NextPage<{ isAuthenticated: boolean }> = ({
+  isAuthenticated,
+}) => {
   return (
     <Box d="flex" h="40vh" alignItems="center" justifyContent="center">
       <Box>

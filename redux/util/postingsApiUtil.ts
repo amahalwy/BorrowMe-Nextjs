@@ -1,14 +1,12 @@
 import axios from "axios";
 
 export const fetchPostings = () => {
-  return axios.get(
-    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/api/postings/`
-  );
+  return axios.get(`${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/`);
 };
 
 export const fetchPosting = (postingId) => {
   return axios.get(
-    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/api/postings/${postingId}`
+    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/${postingId}`
   );
 };
 

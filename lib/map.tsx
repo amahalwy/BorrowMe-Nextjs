@@ -173,7 +173,9 @@ const Map = ({ currentUser, modalPosting }) => {
         <Box>Your address: {currentUser.address}</Box>
         <Box>Item address: {postingAddressShow}</Box>
       </Box>
-      <Box ref={(el) => (mapContainer.current = el)}></Box>
+      <Box>
+        <Box ref={(el) => (mapContainer.current = el)}></Box>
+      </Box>
     </Box>
   );
 };

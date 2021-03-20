@@ -16,8 +16,9 @@ import React from "react";
 import LazyLoadImage from "./LazyLoadImage";
 import { useDispatch } from "react-redux";
 import { clearModal, clickPosting } from "../redux/actions/postingActions";
+import { Posting } from "../typescript/components";
 
-const PostingItem = ({ posting }) => {
+const PostingItem: React.FC<{ posting: Posting }> = ({ posting }) => {
   const dispatch = useDispatch();
   return (
     <Box

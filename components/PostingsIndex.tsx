@@ -3,8 +3,12 @@ import { Box } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import PostingItem from "./PostingItem";
 import PostingModal from "./PostingModal";
+import { Posting, PostingsIndexProps } from "../typescript/components";
 
-const PostingsIndex = ({ modalPosting, postings }) => {
+const PostingsIndex: React.FC<PostingsIndexProps> = ({
+  modalPosting,
+  postings,
+}) => {
   return (
     <Box m="0 auto" w="90%">
       {Object.values(postings).map((posting, i) => {

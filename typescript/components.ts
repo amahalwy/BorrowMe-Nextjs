@@ -79,4 +79,7 @@ export interface NavBarMenuProps {
   setIsMenuOpen: (value: boolean) => void;
   logoutUser: () => void;
 }
-export interface Posting {}
+export interface PostingsIndexProps {
+  modalPosting: ModalPosting;
+  postings: Posting[];
+}

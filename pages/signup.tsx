@@ -1,24 +1,26 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
+import { useSelector, connect } from "react-redux";
 import { Form } from "react-final-form";
-import RenderForm from "../components/RenderSignupInputs";
 import { useRouter } from "next/router";
-import { signup, clearErrors } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
+import { NextPage } from "next";
+import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
+import { signup, clearErrors } from "../redux/actions/sessionActions";
+import RenderForm from "../components/RenderSignupInputs";
 import { RenderErrors } from "../components/RenderErrors";
+import { NewUser } from "../redux/types";
+import { SignupProps } from "../typescript/pages";
 
-const Signup: React.FC = () => {
+const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
   const router = useRouter();
   // const reduxErrors = useSelector((state) => state.errors.session);
-  const dispatch = useDispatch();
 
   const [state, fetch] = useAsyncFn(async (values) => {
-    const response = await dispatch(signup(values));
+    const response = await signup(values);
     return await response;
   }, []);
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: NewUser) => {
     fetch(values).then((res: any) => {
       if (res.status !== 400) {
         router.push("/home");
@@ -29,7 +31,7 @@ const Signup: React.FC = () => {
 
   React.useEffect(() => {
     return () => {
-      dispatch(clearErrors());
+      clearErrors();
     };
   }, []);
 
@@ -112,4 +114,9 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+const mDTP = {
+  signup: signup,
+  clearErrors: clearErrors,
+};
+
+export default connect(null, mDTP)(Signup);

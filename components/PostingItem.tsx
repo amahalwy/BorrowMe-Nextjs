@@ -1,25 +1,11 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Image,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import LazyLoadImage from "./LazyLoadImage";
-import { useDispatch } from "react-redux";
-import { clearModal, clickPosting } from "../redux/actions/postingActions";
-import { Posting } from "../typescript/components";
+import { connect } from "react-redux";
+import { clickPosting } from "../redux/actions/postingActions";
+import { PostingItemProps } from "../typescript/components";
 
-const PostingItem: React.FC<{ posting: Posting }> = ({ posting }) => {
-  const dispatch = useDispatch();
+const PostingItem: React.FC<PostingItemProps> = ({ posting, clickPosting }) => {
   return (
     <Box
       m="4% 0"
@@ -28,6 +14,7 @@ const PostingItem: React.FC<{ posting: Posting }> = ({ posting }) => {
       borderWidth="1px"
       flex="1"
       borderRadius="md"
+      bg="white"
     >
       <Box mb="2%">
         <Box mb="2%">
@@ -45,11 +32,13 @@ const PostingItem: React.FC<{ posting: Posting }> = ({ posting }) => {
       <Box maxH="400px" overflow="scroll" m="10px 0">
         <LazyLoadImage src={posting.image} />
       </Box>
-      <Button onClick={() => dispatch(clickPosting(posting._id))}>
-        Open Calendar
-      </Button>
+      <Button onClick={() => clickPosting(posting._id)}>Open Calendar</Button>
     </Box>
   );
 };
 
-export default PostingItem;
+const mDTP = {
+  clickPosting: clickPosting,
+};
+
+export default connect(null, mDTP)(PostingItem);

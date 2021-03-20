@@ -1,28 +1,26 @@
-import {
-  Box,
-  Button,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
 import React from "react";
-import { Form } from "react-final-form";
+import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { SearchBarProps } from "../typescript/components";
 
-const SearchType = () => {
-  return null;
-};
-
-const SearchBar = () => {
-  const [searchType, setSearchType] = React.useState("Name");
-  const handleClick = () =>
-    setSearchType(searchType === "Name" ? "Tag" : "Name");
-
+const SearchBar: React.FC<SearchBarProps> = ({
+  input,
+  searchType,
+  setInput,
+  handleChange,
+}) => {
   return (
     <InputGroup size="md">
-      <Input pr="4.5rem" type="text" placeholder={`Filter by ${searchType}`} />
-      <SearchType />
+      <Input
+        shadow="md"
+        bg="white"
+        pr="4.5rem"
+        type="text"
+        placeholder={`Filter by ${searchType}`}
+        value={input}
+        onChange={(e) => setInput(e.currentTarget.value)}
+      />
       <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={handleClick}>
+        <Button h="1.75rem" size="sm" onClick={handleChange}>
           {searchType === "Name" ? "Tag" : "Name"}
         </Button>
       </InputRightElement>

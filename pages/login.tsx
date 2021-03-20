@@ -1,26 +1,26 @@
 import React from "react";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { clearErrors, login } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
 import { RenderErrors } from "../components/RenderErrors";
 import { NextPage } from "next";
 import RenderLoginInputs from "../components/RenderLoginInputs";
+import { LoginProps } from "../typescript/pages";
 
-const Login: NextPage = () => {
+const Login: NextPage<LoginProps> = ({ login, clearErrors }) => {
   const router = useRouter();
   const [clickedDemo, setClickedDemo] = React.useState<boolean>(false);
   // const errors = useSelector((state) => state.errors.session);
-  const dispatch = useDispatch();
 
   const [state, fetch] = useAsyncFn(async (values) => {
-    const response = await dispatch(login(values));
+    const response = await login(values);
     return response;
   }, []);
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: { email: string; password: string }) => {
     if (!values) {
       const demopassword = {
         email: "demo@demo.com",
@@ -55,7 +55,7 @@ const Login: NextPage = () => {
 
   React.useEffect(() => {
     return () => {
-      dispatch(clearErrors());
+      clearErrors();
     };
   }, []);
 
@@ -134,4 +134,9 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+const mDTP = {
+  login: login,
+  clearErrors: clearErrors,
+};
+
+export default connect(null, mDTP)(Login);

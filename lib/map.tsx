@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import mapboxgl from "mapbox-gl";
 import { clearMap } from "../redux/actions/postingActions";
 import { Box } from "@chakra-ui/react";
@@ -14,8 +14,6 @@ const Map = ({ currentUser, modalPosting }) => {
   const { address, city, state, zipCode } = modalPosting;
   const postingAddress = `${address} ${city} ${state} ${zipCode}`;
   const postingAddressShow = `${address}`;
-
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     handleMap();

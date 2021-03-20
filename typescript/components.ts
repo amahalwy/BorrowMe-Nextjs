@@ -47,6 +47,7 @@ export interface PostingCalendarProps {
   isOpen: boolean;
   modalPosting: ModalPosting;
   currentUser: CurrentUser;
+  clearModal: () => void;
 }
 export interface Field {
   type?: string;
@@ -65,12 +66,32 @@ export interface PersistConfig {
 export interface CalendarProps {
   modalPosting: ModalPosting;
   currentUser: CurrentUser;
-  setShowSelection: (s: string) => void;
+  setShowSelection: (showSelection: string) => void;
+  clearModal: () => void;
 }
 export interface CalendarState {
   startDate: Date;
   endDate: null | Date;
   key: string;
+}
+export interface PostingsIndexProps {
+  modalPosting: ModalPosting;
+  filteredList: Posting[];
+}
+export interface PostingItemProps {
+  posting: Posting;
+  clickPosting: (_id: string) => void;
+}
+export interface SearchBarProps {
+  input: string;
+  setInput: (input: string) => void;
+  searchType: string;
+  handleChange: () => void;
+}
+
+export interface NavBarProps {
+  isAuthenticated: boolean;
+  logout: () => void;
 }
 export interface NavBarMenuProps {
   router: NextRouter;
@@ -79,7 +100,6 @@ export interface NavBarMenuProps {
   setIsMenuOpen: (value: boolean) => void;
   logoutUser: () => void;
 }
-export interface PostingsIndexProps {
-  modalPosting: ModalPosting;
-  postings: Posting[];
+export interface NavBarLogoProps {
+  router: NextRouter;
 }

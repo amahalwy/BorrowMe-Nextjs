@@ -1,8 +1,7 @@
+import React from "react";
 import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
 import InputFields from "./InputFields";
-import { signupInputs, loginInputs } from "../generals/objects/authInputs";
-import { useRouter } from "next/router";
+import { signupInputs } from "../generals/objects/authInputs";
 
 const RenderSignupInputs: React.FC = () => {
   return (

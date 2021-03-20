@@ -31,6 +31,7 @@ Home.getInitialProps = async ({ store, req, res }: NextPageContext) => {
   if (req && !req.headers.cookie) {
     res.writeHead(307, { Location: "/login" });
     res.end();
+    return {};
   }
 
   const request = await fetchPostings();

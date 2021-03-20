@@ -2,12 +2,13 @@ import {
   FormControl,
   InputGroup,
   Input,
-  FormErrorMessage,
+  InputRightElement,
 } from "@chakra-ui/react";
 import React from "react";
 import { Field } from "react-final-form";
 import { returnValidation } from "../generals/functions/validations";
 import { InputFieldsProps } from "../typescript/components";
+import { FaAsterisk } from "react-icons/fa";
 
 const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
   return (
@@ -27,10 +28,12 @@ const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
               type={inputField.type || "text"}
               {...input}
             />
+            <InputRightElement
+              top="-10px"
+              right="-10px"
+              children={<FaAsterisk fontSize={6} color="red" />}
+            />
           </InputGroup>
-          {meta.touched && meta.error && (
-            <FormErrorMessage ml="1%">{meta.error}</FormErrorMessage>
-          )}
         </FormControl>
       )}
     />

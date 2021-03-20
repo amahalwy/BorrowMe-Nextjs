@@ -4,7 +4,8 @@ import thunkMiddleware from "redux-thunk";
 import rootReducer from "../redux/reducers/rootReducer";
 import { logger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { PersistConfig } from "../typescript/interfaces";
+import { PersistConfig } from "../typescript/components";
+
 // import { createMigrate } from "redux-persist";
 // const migrations = {
 //   0: (state) => initialState,

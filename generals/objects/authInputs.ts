@@ -1,4 +1,4 @@
-import { Field } from "../../typescript/interfaces";
+import { Field } from "../../typescript/components";
 
 const firstName: Field = {
   id: "firstName",
@@ -87,7 +87,4 @@ export const signupInputs = [
   [confirmPassword],
 ];
 
-export const loginInputs = [
-  [email],
-  [password]
-]
+export const loginInputs = [[email], [password]];

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import RenderForm from "../components/RenderForm";
 import { useRouter } from "next/router";
 import { clearErrors, login } from "../redux/actions/sessionActions";
@@ -9,7 +9,7 @@ import { useAsyncFn } from "react-use";
 import { RenderErrors } from "../components/RenderErrors";
 import { NextPage } from "next";
 
-const Login: NextPage = (props) => {
+const Login: NextPage = () => {
   const router = useRouter();
   // const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ const Login: NextPage = (props) => {
 
   const onSubmit = (values) => {
     fetch(values).then((res: any) => {
-      console.log(res);
       if (res.success) {
         router.push("/home");
       }

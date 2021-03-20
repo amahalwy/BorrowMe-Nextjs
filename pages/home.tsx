@@ -1,28 +1,18 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, Spinner } from "@chakra-ui/react";
-import { useStore, connect } from "react-redux";
+import { Box } from "@chakra-ui/react";
+import { connect } from "react-redux";
 import { NextPage } from "next";
 import { fetchPostings } from "../redux/util/postingsApiUtil";
-import {
-  RECEIVE_POSTINGS,
-  clearPostings,
-} from "../redux/actions/postingActions";
-
+import { RECEIVE_POSTINGS } from "../redux/actions/postingActions";
+import { useRouter } from "next/router";
 import { NextPageContext } from "next";
 import PostingsIndex from "../components/PostingsIndex";
 import SearchBar from "../components/SearchBar";
-import { CLEAR_MODAL } from "../redux/actions/bookingActions";
-import { CurrentUser } from "../typescript/interfaces";
+import { HomeProps } from "../typescript/pages";
 
-interface HomeProps {
-  postings: {};
-  currentUser: CurrentUser;
-  pathname: string;
-  dispatch: (r) => void;
-}
-
-const Home: NextPage = () => {
+const Home: NextPage<HomeProps> = ({ isAuthenticated }) => {
+  const router = useRouter();
+  if (!isAuthenticated) router.push("/login");
   return (
     <Box>
       <Box w="90%" m="4% auto">
@@ -37,14 +27,22 @@ const Home: NextPage = () => {
   );
 };
 
-Home.getInitialProps = async ({ store }: NextPageContext) => {
+Home.getInitialProps = async ({ store, req, res }: NextPageContext) => {
+  if (req && !req.headers.cookie) {
+    res.writeHead(307, { Location: "/login" });
+    res.end();
+  }
+
   const request = await fetchPostings();
   const postings = await request.data;
   store.dispatch({ type: RECEIVE_POSTINGS, postings });
-  return {};
+  return {
+    isAuthenticated: false,
+  };
 };
 
 const mSTP = (state) => ({
+  isAuthenticated: state.session.isAuthenticated,
   currentUser: state.session.user,
 });
 

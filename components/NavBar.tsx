@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { connect, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/sessionActions";
+import { useAsyncFn } from "react-use";
 
 const buttonStyles = {
   borderRadius: "25px",
@@ -14,8 +15,17 @@ const buttonStyles = {
 };
 
 const LoggedIn = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const [state, fetch] = useAsyncFn(async () => {
+    const response = await dispatch(logout());
+    return response;
+  }, []);
+
+  const logoutUser = () => {
+    fetch().then(() => router.push("/login"));
+  };
+
+  const dispatch = useDispatch();
   return (
     <Box w="100%" d="flex" h="66px" bg="#a2d3c2" shadow="xl">
       <Box w="75%">
@@ -48,10 +58,7 @@ const LoggedIn = () => {
       </Box>
       <Box w="25%" d="flex" alignItems="center" justifyContent="center">
         <Button
-          onClick={() => {
-            dispatch(logout());
-            router.push("/login");
-          }}
+          onClick={logoutUser}
           style={buttonStyles}
           _hover={{ border: "1px solid red" }}
         >

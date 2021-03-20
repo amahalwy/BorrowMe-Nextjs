@@ -1,7 +1,6 @@
 import axios from "axios";
 import cookieCutter from "cookie-cutter";
 
-// We've been using this method in previos steps
 export const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers.common["Authorization"] = token;
@@ -18,10 +17,6 @@ export const signup = (userData) => {
 
 export const login = (userData) => {
   return axios.post("http://localhost:5000/api/users/login", userData);
-};
-
-export const logout = (userId) => {
-  return axios.delete(`http://localhost:5000/api/users/${userId}`);
 };
 
 export const getCurrent = (token) => {

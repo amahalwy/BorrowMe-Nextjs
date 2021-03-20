@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const fetchPostings = () => {
-  return axios.get("http://localhost:5000/api/postings");
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/api/postings/`
+  );
 };
 
 export const fetchPosting = (postingId) => {

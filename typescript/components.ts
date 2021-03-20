@@ -13,7 +13,6 @@ export interface ModalPosting {
   updatedAt: string;
   zipCode: string;
 }
-
 export interface CurrentUser {
   address: string;
   city: string;
@@ -28,13 +27,11 @@ export interface CurrentUser {
   state: string;
   zipCode: string;
 }
-
 export interface PostingCalendarProps {
   isOpen: boolean;
   modalPosting: ModalPosting;
   currentUser: CurrentUser;
 }
-
 export interface Field {
   type?: string;
   value?: string;
@@ -42,11 +39,9 @@ export interface Field {
   placeholder: string;
   inputStyles: {};
 }
-
 export interface InputFieldsProps {
   inputField: Field;
 }
-
 export interface PersistConfig {
   key: string;
   storage?: any;

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, connect } from "react-redux";
 import { clearModal } from "../redux/actions/postingActions";
-import { ModalPosting, PostingCalendarProps } from "../typescript/interfaces";
+import { ModalPosting, PostingCalendarProps } from "../typescript/components";
 import Calendar from "../lib/calendar";
 import Map from "../lib/map";
 

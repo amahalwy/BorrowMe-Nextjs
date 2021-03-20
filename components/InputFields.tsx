@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { Field } from "react-final-form";
 import { returnValidation } from "../generals/functions/validations";
-import { InputFieldsProps } from "../typescript/interfaces";
+import { InputFieldsProps } from "../typescript/components";
 
 const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
   return (

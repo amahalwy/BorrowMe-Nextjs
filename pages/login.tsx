@@ -11,6 +11,7 @@ import RenderLoginInputs from "../components/RenderLoginInputs";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const [clickedDemo, setClickedDemo] = React.useState<boolean>(false);
   // const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
@@ -20,15 +21,26 @@ const Login: NextPage = () => {
   }, []);
 
   const onSubmit = (values) => {
+    if (!values) {
+      const demopassword = {
+        email: "demo@demo.com",
+        password: "demo1234",
+      };
+      fetch(demopassword).then((res: any) => {
+        if (res.success) router.push("/home");
+      });
+      return;
+    }
+
     fetch(values).then((res: any) => {
       if (res.success) {
         router.push("/home");
       }
-      return null;
+      return;
     });
   };
 
-  const trialLogin = () => {
+  const demoLogin = () => {
     const demopassword = {
       email: "demo@demo.com",
       password: "demo1234",
@@ -68,6 +80,7 @@ const Login: NextPage = () => {
           submitting,
           pristine,
           hasValidationErrors,
+          submitSucceeded,
         }) => (
           <form onSubmit={handleSubmit}>
             <Box w="92%" m="0 auto" pb="4%">
@@ -78,6 +91,7 @@ const Login: NextPage = () => {
                   variant="auth-login"
                   type="submit"
                   disabled={
+                    submitSucceeded ||
                     hasValidationErrors ||
                     pristine ||
                     submitting ||
@@ -89,10 +103,12 @@ const Login: NextPage = () => {
                 </Button>
                 <Button
                   variant="auth-login"
-                  type="submit"
-                  disabled={submitting || state.loading}
+                  disabled={clickedDemo || state.loading}
                   isLoading={state.loading}
-                  onClick={() => trialLogin()}
+                  onClick={() => {
+                    setClickedDemo(!clickedDemo);
+                    demoLogin();
+                  }}
                 >
                   Demo Login
                 </Button>

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   FormControl,
@@ -5,9 +6,7 @@ import {
   Input,
   InputGroup,
 } from "@chakra-ui/react";
-import React from "react";
 import { loginInputs } from "../generals/objects/authInputs";
-import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import { requiredAndEmail, required } from "../generals/functions/validations";
 
@@ -16,7 +15,7 @@ const RenderLoginInputs: React.FC = () => {
     <>
       {loginInputs.map((inputField, i) => {
         return (
-          <Box m="2% 0">
+          <Box m="2% 0" key={inputField.id}>
             <Field
               name={inputField.id}
               validate={inputField.id === "email" ? requiredAndEmail : required}

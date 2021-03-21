@@ -3,7 +3,7 @@ import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import React from "react";
 import { Box, Button } from "@chakra-ui/react";
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { clearModal } from "../redux/actions/postingActions";
 import { CalendarProps, CalendarState } from "../typescript/components";
 
@@ -11,9 +11,8 @@ const Calendar: React.FC<CalendarProps> = ({
   setShowSelection,
   modalPosting,
   currentUser,
+  clearModal,
 }) => {
-  const dispatch = useDispatch();
-
   const addDays = (date: Date, days: number) => {
     let newDate: Date = new Date(date.valueOf());
     newDate.setDate(newDate.getDate() + days);
@@ -86,7 +85,7 @@ const Calendar: React.FC<CalendarProps> = ({
           ml={3}
           onClick={() => {
             setShowSelection("calendar");
-            dispatch(clearModal());
+            clearModal();
           }}
         >
           Close
@@ -101,4 +100,8 @@ const mSTP = (state) => ({
   modalPosting: state.entities.modal,
 });
 
-export default connect(mSTP)(Calendar);
+const mDTP = {
+  clearModal: clearModal,
+};
+
+export default connect(mSTP, mDTP)(Calendar);

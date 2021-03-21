@@ -12,7 +12,7 @@ import {
   TabList,
   Tab,
 } from "@chakra-ui/react";
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { clearModal } from "../redux/actions/postingActions";
 import { ModalPosting, PostingCalendarProps } from "../typescript/components";
 import Calendar from "../lib/calendar";
@@ -49,12 +49,12 @@ const PostingCalendar: React.FC<PostingCalendarProps> = ({
   isOpen,
   modalPosting,
   currentUser,
+  clearModal,
 }) => {
-  const dispatch = useDispatch();
   const [showSelection, setShowSelection] = React.useState<string>("calendar");
 
   React.useEffect(() => {
-    dispatch(clearModal());
+    clearModal();
   }, []);
 
   return (
@@ -62,10 +62,9 @@ const PostingCalendar: React.FC<PostingCalendarProps> = ({
       <Modal
         isOpen={isOpen}
         onClose={() => {
+          clearModal();
           setShowSelection("calendar");
-          dispatch(clearModal());
         }}
-        // size="xl"
       >
         <ModalOverlay />
         <ModalContent w={{ base: "90%", lg: "100%" }}>
@@ -96,4 +95,8 @@ const mSTP = (state) => ({
   modalPosting: state.entities.modal,
 });
 
-export default connect(mSTP)(PostingCalendar);
+const mDTP = {
+  clearModal: clearModal,
+};
+
+export default connect(mSTP, mDTP)(PostingCalendar);

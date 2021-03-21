@@ -8,14 +8,18 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import React from "react";
-import { NextRouter, useRouter } from "next/router";
-import { connect, useDispatch } from "react-redux";
-import { logout } from "../redux/actions/sessionActions";
+import { useRouter } from "next/router";
+import { connect } from "react-redux";
 import { useAsyncFn } from "react-use";
+import { logout } from "../redux/actions/sessionActions";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { NavBarMenuProps } from "../typescript/components";
+import {
+  NavBarLogoProps,
+  NavBarMenuProps,
+  NavBarProps,
+} from "../typescript/components";
 
-const NavBarLogo: React.FC<{ router: NextRouter }> = ({ router }) => {
+const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
   return (
     <Box w="85%" ml="4%">
       <Box h="100%" d="flex" alignItems="center">
@@ -80,15 +84,12 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
   );
 };
 
-const NavBar: React.FC<{ isAuthenticated: boolean }> = ({
-  isAuthenticated,
-}) => {
-  const dispatch = useDispatch();
+const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, logout }) => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
 
   const [state, fetch] = useAsyncFn(async () => {
-    const response = await dispatch(logout());
+    const response = await logout();
     return response;
   }, []);
 
@@ -115,4 +116,8 @@ const mSTP = (state) => ({
   currentUser: state.session.user,
 });
 
-export default connect(mSTP)(NavBar);
+const mDTP = {
+  logout: logout,
+};
+
+export default connect(mSTP, mDTP)(NavBar);

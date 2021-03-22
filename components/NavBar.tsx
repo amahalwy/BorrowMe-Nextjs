@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Image,
@@ -7,7 +8,6 @@ import {
   MenuItem,
   IconButton,
 } from "@chakra-ui/react";
-import React from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { useAsyncFn } from "react-use";
@@ -75,6 +75,13 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
         ) : (
           <MenuList>
             <MenuItem onClick={() => router.push("/landing")}>Landing</MenuItem>
+            <MenuItem onClick={() => router.push("/profile")}>Profile</MenuItem>
+            <MenuItem onClick={() => router.push("/requests")}>
+              Requests
+            </MenuItem>
+            <MenuItem onClick={() => router.push(`/bookings`)}>
+              Bookings
+            </MenuItem>
             <MenuItem onClick={() => router.push("/home")}>Home</MenuItem>
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </MenuList>

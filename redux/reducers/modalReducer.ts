@@ -1,5 +1,4 @@
 import { CLICK_POSTING, CLEAR_MODAL, SUCCESS } from "../actions/postingActions";
-import { UPDATE_SUCCESS } from "../actions/userActions";
 import { CLICK_BOOKING } from "../actions/bookingActions";
 import { CLICK_REQUEST } from "../actions/requestActions";
 
@@ -15,8 +14,6 @@ const modalReducer = (state = {}, action) => {
     case CLEAR_MODAL:
       return {};
     case SUCCESS:
-      return Object.assign({}, state, { res: action.status });
-    case UPDATE_SUCCESS:
       return Object.assign({}, state, { res: action.status });
     default:
       return state;

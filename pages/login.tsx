@@ -4,13 +4,20 @@ import { Form } from "react-final-form";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { useAsyncFn } from "react-use";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import { clearErrors, login } from "../redux/actions/sessionActions";
 import { RenderErrors } from "../components/RenderErrors";
 import RenderLoginInputs from "../components/RenderLoginInputs";
 import { LoginProps } from "../typescript/pages";
+import { clearPostings } from "../redux/actions/postingActions";
+import { clearUsers } from "../redux/actions/userActions";
 
-const Login: NextPage<LoginProps> = ({ login, clearErrors }) => {
+const Login: NextPage<LoginProps> = ({
+  login,
+  clearErrors,
+  clearUsers,
+  clearPostings,
+}) => {
   const router = useRouter();
   const [clickedDemo, setClickedDemo] = React.useState<boolean>(false);
   // const errors = useSelector((state) => state.errors.session);
@@ -55,6 +62,8 @@ const Login: NextPage<LoginProps> = ({ login, clearErrors }) => {
 
   React.useEffect(() => {
     return () => {
+      clearUsers();
+      clearPostings();
       clearErrors();
     };
   }, []);
@@ -137,6 +146,8 @@ const Login: NextPage<LoginProps> = ({ login, clearErrors }) => {
 const mDTP = {
   login: login,
   clearErrors: clearErrors,
+  clearUsers: clearUsers,
+  clearPostings: clearPostings,
 };
 
 export default connect(null, mDTP)(Login);

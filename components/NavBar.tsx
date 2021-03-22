@@ -7,6 +7,7 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  Stack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
@@ -18,6 +19,10 @@ import {
   NavBarMenuProps,
   NavBarProps,
 } from "../typescript/components";
+import {
+  __LOGGED_IN_BUTTONS,
+  __LOGGED_OUT_BUTTONS,
+} from "../generals/objects/navButtons";
 
 const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
   return (
@@ -67,22 +72,25 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
           bg="white"
         />
         {!isAuthenticated ? (
-          <MenuList zIndex={2}>
-            <MenuItem onClick={() => router.push("/landing")}>Landing</MenuItem>
-            <MenuItem onClick={() => router.push("/signup")}>Signup</MenuItem>
-            <MenuItem onClick={() => router.push("/login")}>Login</MenuItem>
+          <MenuList w="">
+            {__LOGGED_OUT_BUTTONS.map((button, i) => {
+              return (
+                <MenuItem key={i} onClick={() => router.push(button.path)}>
+                  {button.text}
+                </MenuItem>
+              );
+            })}
           </MenuList>
         ) : (
           <MenuList>
-            <MenuItem onClick={() => router.push("/landing")}>Landing</MenuItem>
-            <MenuItem onClick={() => router.push("/profile")}>Profile</MenuItem>
-            <MenuItem onClick={() => router.push("/requests")}>
-              Requests
-            </MenuItem>
-            <MenuItem onClick={() => router.push(`/bookings`)}>
-              Bookings
-            </MenuItem>
-            <MenuItem onClick={() => router.push("/home")}>Home</MenuItem>
+            {__LOGGED_IN_BUTTONS.map((button, i) => {
+              return (
+                <MenuItem key={i} onClick={() => router.push(button.path)}>
+                  {button.text}
+                </MenuItem>
+              );
+            })}
+
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </MenuList>
         )}
@@ -103,6 +111,12 @@ const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, logout }) => {
   const logoutUser = () => {
     fetch().then(() => router.push("/login"));
   };
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      // Get the notifications thing to show
+    }
+  }, [isAuthenticated]);
 
   return (
     <Box w="100%" d="flex" h="66px" bg="#a2d3c2" shadow="xl">

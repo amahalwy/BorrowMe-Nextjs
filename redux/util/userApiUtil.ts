@@ -18,8 +18,13 @@ export const updateUser = (userId, formData) => {
   );
 };
 export const fetchCurrentUser = (token) => {
+  const newToken = token.split("%20").join(" ");
   return axios.get(
-    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/`,
-    token
+    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/current`,
+    {
+      headers: {
+        Authorization: newToken,
+      },
+    }
   );
 };

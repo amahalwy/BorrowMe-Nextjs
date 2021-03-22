@@ -35,8 +35,6 @@ export const makeStore = () => {
       // migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
     };
 
-    const MIGRATION_DEBUG = false;
-
     const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store: any = makeConfiguredStore(persistedReducer);
 
@@ -46,4 +44,4 @@ export const makeStore = () => {
   }
 };
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore);

@@ -1,5 +1,5 @@
 import {
-  RECEIVE_REQUESTOR_REQUESTS,
+  REQUESTOR_REQUESTS,
   RECEIVE_REQUEST,
   REMOVE_REQUEST,
   CLEAR_REQUESTS,
@@ -8,7 +8,7 @@ import {
 const requestorRequestsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_REQUESTOR_REQUESTS:
+    case REQUESTOR_REQUESTS:
       return Object.assign({}, state, action.requests.data);
     case RECEIVE_REQUEST:
       return Object.assign({}, state, action.request.data);

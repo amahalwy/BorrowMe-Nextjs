@@ -4,13 +4,7 @@ import {
   RECEIVE_USER_LOGIN,
 } from "../actions/sessionActions";
 import { HYDRATE } from "next-redux-wrapper";
-import { diff } from "jsondiffpatch";
-
-interface State {
-  isAuthenticated: boolean;
-  user: {};
-  page?: any;
-}
+import { State } from "../types";
 
 const initialState: State = {
   isAuthenticated: false,
@@ -20,13 +14,12 @@ const initialState: State = {
 const session = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
-      const stateDiff = diff(state, action.payload) as any;
-      const wasBumpedOnClient = stateDiff?.page?.[0]?.endsWith("X");
-      return {
-        ...state,
-        ...action.payload,
-        page: wasBumpedOnClient ? state.page : action.payload.page,
+      const nextState = {
+        ...state, // use previous state
+        ...action.payload, // apply delta from hydration
       };
+      if (state.count) nextState.count = state.count; // preserve count value on client side navigation
+      return nextState;
     case RECEIVE_CURRENT_USER:
       return {
         ...state,

@@ -12,7 +12,7 @@ export const fetchRequestorRequests = (userId) => {
   );
 };
 
-export const fetchReceiverRequests = (userId) => {
+export const fetchOwnerRequests = (userId) => {
   return axios.get(
     `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/${userId}/requests/receiver`
   );

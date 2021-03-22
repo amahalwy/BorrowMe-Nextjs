@@ -1,14 +1,14 @@
 import {
-  RECEIVE_RECEIVER_REQUESTS,
+  OWNER_REQUESTS,
   RECEIVE_REQUEST,
   REMOVE_REQUEST,
   CLEAR_REQUESTS,
 } from "../actions/requestActions";
 
-const receiverRequestsReducer = (state = {}, action) => {
+const ownerRequests = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_RECEIVER_REQUESTS:
+    case OWNER_REQUESTS:
       return Object.assign({}, state, action.requests.data);
     case RECEIVE_REQUEST:
       return Object.assign({}, state, action.request.data);
@@ -23,4 +23,4 @@ const receiverRequestsReducer = (state = {}, action) => {
   }
 };
 
-export default receiverRequestsReducer;
+export default ownerRequests;

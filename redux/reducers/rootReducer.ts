@@ -1,5 +1,5 @@
-import { HYDRATE } from "next-redux-wrapper";
 import { diff } from "jsondiffpatch";
+import { HYDRATE } from "next-redux-wrapper";
 import appReducer from "./appReducer";
 
 const rootReducer = (state, action) => {

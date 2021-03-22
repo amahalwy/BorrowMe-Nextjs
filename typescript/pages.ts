@@ -1,5 +1,4 @@
-import { NewUser } from "../redux/types";
-import { CurrentUser, Posting } from "./components";
+import { CurrentUser, NewUser, Posting } from "../redux/types";
 export interface HomeProps {
   postings?: Posting[];
   isAuthenticated?: boolean;
@@ -14,4 +13,9 @@ export interface LoginProps {
 export interface SignupProps {
   signup: (user: NewUser) => void;
   clearErrors: () => void;
+}
+export interface ProfileProps {
+  isAuthenticated?: boolean;
+  currentUser?: CurrentUser;
+  updateUser: (id: string, data: {}) => Promise<any>;
 }

@@ -3,10 +3,10 @@ import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
-import { clearErrors, login } from "../redux/actions/sessionActions";
 import { useAsyncFn } from "react-use";
-import { RenderErrors } from "../components/RenderErrors";
 import { NextPage } from "next";
+import { clearErrors, login } from "../redux/actions/sessionActions";
+import { RenderErrors } from "../components/RenderErrors";
 import RenderLoginInputs from "../components/RenderLoginInputs";
 import { LoginProps } from "../typescript/pages";
 

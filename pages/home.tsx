@@ -8,7 +8,7 @@ import { RECEIVE_POSTINGS } from "../redux/actions/postingActions";
 import PostingsIndex from "../components/PostingsIndex";
 import SearchBar from "../components/SearchBar";
 import { HomeProps } from "../typescript/pages";
-import { Posting } from "../typescript/components";
+import { Posting } from "../redux/types";
 
 const Home: NextPage<HomeProps> = ({ isAuthenticated, postings }) => {
   const router = useRouter();

@@ -75,6 +75,22 @@ const confirmPassword: Field = {
   },
 };
 
+const firstNameProfile: Field = {
+  id: "firstName",
+  placeholder: "First Name",
+  inputStyles: {
+    paddingRight: "3%",
+  },
+};
+
+const lastNameProfile: Field = {
+  id: "lastName",
+  placeholder: "Last Name",
+  inputStyles: {
+    marginLeft: "3%",
+  },
+};
+
 export const signupInputs = [
   [firstName],
   [lastName],
@@ -86,3 +102,10 @@ export const signupInputs = [
 ];
 
 export const loginInputs = [email, password];
+
+export const editProfileInputs = [
+  [firstNameProfile, lastNameProfile],
+  [email],
+  [address],
+  [city, state, zipCode],
+];

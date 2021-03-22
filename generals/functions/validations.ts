@@ -11,7 +11,7 @@ const requiredAndString = (value: string) => {
   if (!value) {
     return `Required`;
   } else {
-    if (value.match("^[a-zA-Z]+$")) {
+    if (value.match("^[a-zA-Z ]+$")) {
       return undefined;
     } else {
       return "Unaccepted Characters";

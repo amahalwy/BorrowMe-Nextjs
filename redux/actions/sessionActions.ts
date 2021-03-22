@@ -7,7 +7,7 @@ export const RECEIVE_USER_LOGIN = "RECEIVE_USER_LOGIN";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-const receiveCurrentUser = (currentUser) => ({
+export const receiveCurrentUser = (currentUser) => ({
   type: RECEIVE_CURRENT_USER,
   currentUser,
 });
@@ -27,32 +27,29 @@ const clear = () => ({
 });
 
 export const signup = (user) => (dispatch) =>
-  APIUtil.signup(user).then(
-    (res) => {
+  APIUtil.signup(user)
+    .then((res) => {
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       APIUtil.setAuthToken(token);
       const decoded: any = jwt_decode(token);
       dispatch(receiveCurrentUser(decoded));
       return res.data;
-    },
-    (err) => {
-      return dispatch(receiveErrors(err.response.data));
-    }
-  );
+    })
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 
 export const login = (user) => (dispatch) =>
-  APIUtil.login(user).then(
-    (res) => {
+  APIUtil.login(user)
+    .then((res) => {
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       APIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
+
       dispatch(receiveCurrentUser(decoded));
       return res.data;
-    },
-    (err) => dispatch(receiveErrors(err.response.data))
-  );
+    })
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("jwtToken");

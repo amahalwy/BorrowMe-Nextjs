@@ -9,6 +9,9 @@ import PostingsIndex from "../components/PostingsIndex";
 import SearchBar from "../components/SearchBar";
 import { HomeProps } from "../typescript/pages";
 import { Posting } from "../redux/types";
+import { fetchCurrentUser } from "../redux/util/userApiUtil";
+import { fetchOwnerRequests } from "../redux/util/requestApiUtil";
+import { OWNER_REQUESTS } from "../redux/actions/requestActions";
 
 const Home: NextPage<HomeProps> = ({ isAuthenticated, postings }) => {
   const router = useRouter();
@@ -61,18 +64,27 @@ Home.getInitialProps = async ({ store, req, res }: NextPageContext) => {
     return {};
   }
 
-  const request = await fetchPostings();
-  const postings: Posting[] = await request.data;
+  // const cookie = req.headers.cookie.slice(15).split("%20").join(" ");
+
+  //   const userRequest = await fetchCurrentUser(cookie);
+  //   const currentUser = await userRequest.data;
+  //   const currentUserReceivedRequests = await fetchOwnerRequests(
+  //     currentUser.id
+  //   );
+  //   const ownerRequests = await currentUserReceivedRequests.data;
+
+  //   store.dispatch({ type: OWNER_REQUESTS, ownerRequests });
+  const postingsRequest = await fetchPostings();
+  const postings: Posting[] = await postingsRequest.data;
   store.dispatch({ type: RECEIVE_POSTINGS, postings });
-  return {
-    isAuthenticated: false,
-  };
+  return {};
 };
 
 const mSTP = (state) => ({
   isAuthenticated: state.session.isAuthenticated,
   currentUser: state.session.user,
   postings: state.entities.postings,
+  // ownerRequests: state.entities.ownerRequests,
 });
 
 export default connect(mSTP)(Home);

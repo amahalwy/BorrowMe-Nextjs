@@ -10,16 +10,16 @@ const RenderSignupInputs: React.FC = () => {
         if (element.length === 1) {
           return (
             <Box m="2% 0" key={i}>
-              <InputFields inputField={element[0]} />
+              <InputFields inputField={element[0]} key={i} />
             </Box>
           );
         } else {
           return (
             <Box d="flex" key={i}>
-              {element.map((input, i) => {
+              {element.map((input, j) => {
                 return (
-                  <Box>
-                    <InputFields inputField={input} key={i} />
+                  <Box key={j}>
+                    <InputFields inputField={input} key={j} />
                   </Box>
                 );
               })}

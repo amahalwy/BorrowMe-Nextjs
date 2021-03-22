@@ -13,14 +13,18 @@ export const setAuthToken = (token) => {
 
 export const signup = (userData) => {
   return axios.post(
-    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/signup`,
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/users/signup`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/signup`,
     userData
   );
 };
 
 export const login = (userData) => {
   return axios.post(
-    `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/login`,
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/users/login`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/users/login`,
     userData
   );
 };

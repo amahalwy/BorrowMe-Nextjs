@@ -1,7 +1,7 @@
 import * as APIUtil from "../util/requestApiUtil";
 
-export const RECEIVE_RECEIVER_REQUESTS = "RECEIVE_RECEIVER_REQUESTS";
-export const RECEIVE_REQUESTOR_REQUESTS = "RECEIVE_REQUESTOR_REQUESTS";
+export const OWNER_REQUESTS = "OWNER_REQUESTS";
+export const REQUESTOR_REQUESTS = "REQUESTOR_REQUESTS";
 export const RECEIVE_REQUEST = "RECEIVE_REQUEST";
 export const REMOVE_REQUEST = "REMOVE_REQUEST";
 export const RECEIVE_REQUEST_ERRORS = "RECEIVE_REQUEST_ERRORS";
@@ -10,13 +10,13 @@ export const CLICK_REQUEST = "CLICK_REQUEST";
 export const CLEAR_MODAL = "CLEAR_MODAL";
 export const SUCCESS = "SUCCESS";
 
-const receiveReceiverRequests = (requests) => ({
-  type: RECEIVE_RECEIVER_REQUESTS,
+const receiveOwnerRequests = (requests) => ({
+  type: OWNER_REQUESTS,
   requests,
 });
 
 const receiveRequestorRequests = (requests) => ({
-  type: RECEIVE_REQUESTOR_REQUESTS,
+  type: REQUESTOR_REQUESTS,
   requests,
 });
 
@@ -59,9 +59,9 @@ export const fetchRequest = (requestId) => (dispatch) => {
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 
-export const fetchReceiverRequests = (userId) => (dispatch) => {
-  APIUtil.fetchReceiverRequests(userId)
-    .then((requests) => dispatch(receiveReceiverRequests(requests)))
+export const fetchOwnerRequests = (userId) => (dispatch) => {
+  APIUtil.fetchOwnerRequests(userId)
+    .then((requests) => dispatch(receiveOwnerRequests(requests)))
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
 

@@ -7,11 +7,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   setImageSrc,
   setImageFile,
 }) => {
-  const _handleImageChange = (e) => {
+  const _handleImageChange = (e: any) => {
     e.preventDefault();
 
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let file: File = e.target.files[0];
 
     reader.onloadend = () => {
       setImageFile(file);

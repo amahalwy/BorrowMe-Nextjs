@@ -10,6 +10,7 @@ const postingsReducer = (state: { page?: any } = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case HYDRATE:
+      console.log(state, action.payload);
       const stateDiff = diff(state, action.payload) as any;
       const wasBumpedOnClient = stateDiff?.page?.[0]?.endsWith("X");
       return {

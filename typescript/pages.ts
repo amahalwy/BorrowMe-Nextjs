@@ -7,8 +7,10 @@ export interface HomeProps {
   dispatch?: (r) => void;
 }
 export interface LoginProps {
-  login: (user: { email: string; password: string }) => void;
-  clearErrors: () => void;
+  login?: (user: { email: string; password: string }) => void;
+  clearErrors?: () => void;
+  clearUsers?: () => void;
+  clearPostings?: () => void;
 }
 export interface SignupProps {
   signup: (user: NewUser) => void;
@@ -18,4 +20,7 @@ export interface ProfileProps {
   isAuthenticated?: boolean;
   currentUser?: CurrentUser;
   updateUser: (id: string, data: {}) => Promise<any>;
+}
+export interface PostingProps {
+  postings?: Posting[];
 }

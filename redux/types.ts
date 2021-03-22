@@ -1,4 +1,10 @@
 // Generals
+export interface State {
+  isAuthenticated: boolean;
+  user: {};
+  count?: any;
+}
+
 export interface NewUser {
   firstName: string;
   lastName: string;

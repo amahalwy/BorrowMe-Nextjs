@@ -80,7 +80,7 @@ export interface ProfileFormProps {
 }
 export interface ImageUploadProps {
   setImageSrc: (image: string | ArrayBuffer) => void;
-  setImageFile: (image: string) => void;
+  setImageFile: (image: string | File) => void;
 }
 export interface PortfolioFormSectionProps {
   onSubmit: (values: {}) => any;
@@ -90,6 +90,6 @@ export interface ProfileImageSectionProps {
   state: any;
   imageSrc: string;
   isEditingForm: boolean;
-  setImageSrc: (image: string) => any;
-  setImageFile: (image: string) => any;
+  setImageSrc: (image: string | ArrayBuffer) => any;
+  setImageFile: (image: string | File) => any;
 }

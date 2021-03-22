@@ -1,48 +1,11 @@
 import { NextRouter } from "next/router";
-export interface Posting {
-  _id: string;
-  address: string;
-  city: string;
-  createdAt: string;
-  description: string;
-  image: string;
-  ownerId: string;
-  price: string;
-  state: string;
-  tags: string[];
-  title: string;
-  updatedAt: string;
-  zipCode: string;
+import { ModalPosting, CurrentUser, Posting } from "../redux/types";
+export interface PersistConfig {
+  key: string;
+  storage?: any;
 }
-export interface ModalPosting {
-  _id: string;
-  address: string;
-  city: string;
-  createdAt: string;
-  description: string;
-  image: string;
-  ownerId: string;
-  price: string;
-  state: string;
-  tags: string[];
-  title: string;
-  updatedAt: string;
-  zipCode: string;
-}
-export interface CurrentUser {
-  address: string;
-  city: string;
-  email: string;
-  exp: number;
-  firstName: string;
-  iat: number;
-  id: string;
-  lastName: string;
-  postings: [];
-  profilePhoto: string;
-  state: string;
-  zipCode: string;
-}
+// Generals
+
 export interface PostingCalendarProps {
   isOpen: boolean;
   modalPosting: ModalPosting;
@@ -58,11 +21,9 @@ export interface Field {
 }
 export interface InputFieldsProps {
   inputField: Field;
+  currentUser?: CurrentUser;
 }
-export interface PersistConfig {
-  key: string;
-  storage?: any;
-}
+
 export interface CalendarProps {
   modalPosting: ModalPosting;
   currentUser: CurrentUser;
@@ -89,6 +50,7 @@ export interface SearchBarProps {
   handleChange: () => void;
 }
 
+// Navbar section
 export interface NavBarProps {
   isAuthenticated: boolean;
   logout: () => void;
@@ -102,4 +64,32 @@ export interface NavBarMenuProps {
 }
 export interface NavBarLogoProps {
   router: NextRouter;
+}
+
+// Portfolio section
+export interface ProfileFormProps {
+  imageSrc: string | any;
+  imageFile: any | {};
+  isUpdating: boolean;
+  currentUser?: CurrentUser;
+  setIsUpdating: (isUpdating: boolean) => void;
+  updateUser: (id: string, data: {}) => CurrentUser;
+  fetchUser: (id: string) => any;
+  fetchCurrentUser: (id: string) => any;
+  setIsEditingForm: (isEditingForm: boolean) => void;
+}
+export interface ImageUploadProps {
+  setImageSrc: (image: string | ArrayBuffer) => void;
+  setImageFile: (image: string) => void;
+}
+export interface PortfolioFormSectionProps {
+  onSubmit: (values: {}) => any;
+  initialVals: {} | any;
+}
+export interface ProfileImageSectionProps {
+  state: any;
+  imageSrc: string;
+  isEditingForm: boolean;
+  setImageSrc: (image: string) => any;
+  setImageFile: (image: string) => any;
 }

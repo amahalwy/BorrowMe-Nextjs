@@ -3,16 +3,19 @@ import {
   InputGroup,
   Input,
   InputRightElement,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 import { Field } from "react-final-form";
+import { connect } from "react-redux";
+import { FaAsterisk } from "react-icons/fa";
 import { returnValidation } from "../generals/functions/validations";
 import { InputFieldsProps } from "../typescript/components";
-import { FaAsterisk } from "react-icons/fa";
 
 const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
   return (
     <Field
+      // key={inputField.id}
       name={inputField.id}
       validate={returnValidation(inputField.id)}
       render={({ input, meta }) => (
@@ -28,11 +31,15 @@ const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
               type={inputField.type || "text"}
               {...input}
             />
-            <InputRightElement
-              top="-10px"
-              right="-10px"
-              children={<FaAsterisk fontSize={6} color="red" />}
-            />
+            {meta.error && meta.touched && (
+              <Box>
+                <InputRightElement
+                  top="-10px"
+                  right="-10px"
+                  children={<FaAsterisk fontSize={6} color="red" />}
+                />
+              </Box>
+            )}
           </InputGroup>
         </FormControl>
       )}
@@ -40,4 +47,8 @@ const InputFields: React.FC<InputFieldsProps> = ({ inputField }) => {
   );
 };
 
-export default InputFields;
+const mSTP = (state) => ({
+  currentUser: state.session.user,
+});
+
+export default connect(mSTP)(InputFields);

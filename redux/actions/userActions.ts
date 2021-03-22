@@ -4,6 +4,7 @@ export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 export const UPDATE_USER = "UPDATE_USER";
 export const CURRENT_USER = "CURRENT_USER";
+export const CLEAR_USERS = "CLEAR_USERS";
 
 const receiveUser = (user) => ({
   type: RECEIVE_USER,
@@ -18,6 +19,10 @@ const update = (user) => ({
 const receiveErrors = (errors) => ({
   type: RECEIVE_USER_ERRORS,
   errors,
+});
+
+const clear = () => ({
+  type: CLEAR_USERS,
 });
 
 export const fetchUser = (userId) => (dispatch) => {
@@ -37,4 +42,8 @@ export const updateUser = (userId, formData) => (dispatch) => {
       return user.data;
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
+};
+
+export const clearUsers = () => (dispatch) => {
+  dispatch(clear());
 };

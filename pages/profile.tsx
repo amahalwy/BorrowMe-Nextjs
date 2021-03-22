@@ -22,7 +22,7 @@ const Profile: NextPage<ProfileProps> = ({
   const [imageSrc, setImageSrc] = React.useState<string | any>(
     currentUser.profilePhoto
   );
-  const [imageFile, setImageFile] = React.useState<any>(
+  const [imageFile, setImageFile] = React.useState<string | File>(
     currentUser.profilePhoto
   );
 
@@ -42,7 +42,16 @@ const Profile: NextPage<ProfileProps> = ({
     return await updateUser(currentUser._id, data);
   }, []);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    file?: string;
+  }) => {
     const formData = new FormData();
     for (const key in values) {
       formData.append(key, values[key]);

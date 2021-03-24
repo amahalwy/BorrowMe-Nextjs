@@ -7,7 +7,7 @@ import { clearErrors, login } from "../redux/actions/sessionActions";
 import { PostingProps } from "../typescript/pages";
 import { clearPostings } from "../redux/actions/postingActions";
 import { clearUsers } from "../redux/actions/userActions";
-import { stat } from "fs/promises";
+import { fetchThree } from "../redux/util/postingsApiUtil";
 
 const Postings: NextPage<PostingProps> = ({}) => {
   const router = useRouter();

@@ -17,7 +17,10 @@ const Profile: NextPage<ProfileProps> = ({
   updateUser,
 }) => {
   const router = useRouter();
-  if (!currentUser || !isAuthenticated) router.push("/login");
+  if (!currentUser || !isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
   const [isEditingForm, setIsEditingForm] = React.useState<boolean>(false);
   const [imageSrc, setImageSrc] = React.useState<string | any>(
     currentUser.profilePhoto

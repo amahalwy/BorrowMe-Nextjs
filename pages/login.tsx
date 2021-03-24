@@ -61,9 +61,9 @@ const Login: NextPage<LoginProps> = ({
   };
 
   React.useEffect(() => {
+    clearPostings();
     return () => {
       clearUsers();
-      clearPostings();
       clearErrors();
     };
   }, []);

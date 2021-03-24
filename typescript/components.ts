@@ -3,6 +3,8 @@ import { ModalPosting, CurrentUser, Posting } from "../redux/types";
 export interface PersistConfig {
   key: string;
   storage?: any;
+  whitelist?: string[];
+  stateReconciler: any;
 }
 // Generals
 

@@ -61,3 +61,32 @@ export interface CurrentUser {
   id?: string;
   _id?: string;
 }
+
+interface EntitiesSlice {
+  users?: {};
+  postings?: {};
+  requestorRequests?: {};
+  ownerRequests?: {};
+  renterBookings?: {};
+  modal?: {};
+  map?: {};
+}
+
+interface ErrorsSlice {
+  session?: [];
+  user?: [];
+  postings?: [];
+  requests?: [];
+  bookings?: [];
+}
+
+interface SessionSlice {
+  isAuthenticated?: boolean;
+  user?: CurrentUser | {};
+}
+
+export interface ReduxState {
+  entities: EntitiesSlice;
+  errors: ErrorsSlice;
+  session: SessionSlice;
+}

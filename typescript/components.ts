@@ -38,7 +38,6 @@ export interface CalendarState {
   key: string;
 }
 export interface PostingsIndexProps {
-  modalPosting: ModalPosting;
   filteredList: Posting[];
 }
 export interface PostingItemProps {
@@ -54,8 +53,8 @@ export interface SearchBarProps {
 
 // Navbar section
 export interface NavBarProps {
-  isAuthenticated: boolean;
-  logout: () => void;
+  isAuthenticated?: boolean;
+  logout?: () => void;
 }
 export interface NavBarMenuProps {
   router: NextRouter;

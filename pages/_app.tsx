@@ -1,6 +1,6 @@
 import React from "react";
 import { AppProps, AppContext } from "next/app";
-import { useStore } from "react-redux";
+import { Provider, useStore } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { wrapper } from "../redux/store";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -12,12 +12,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const store: any = useStore();
   return (
     <>
-      <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
-        <ChakraProvider theme={theme}>
-          <NavBar />
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </PersistGate>
+      <Provider store={store}>
+        <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
+          <ChakraProvider theme={theme}>
+            <NavBar />
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </PersistGate>
+      </Provider>
     </>
   );
 };

@@ -1,16 +1,15 @@
-import { diff } from "jsondiffpatch";
 import { HYDRATE } from "next-redux-wrapper";
 import appReducer from "./appReducer";
+import { diff } from "jsondiffpatch";
+import { REHYDRATE } from "redux-persist";
 
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case HYDRATE:
-      const nextState = {
-        ...state, // use previous state
-        ...action.payload, // apply delta from hydration
-      };
-      if (state.count) nextState.count = state.count; // preserve count value on client side navigation
-      return nextState;
+    // case HYDRATE:
+    //   return {
+    //     ...state,
+    //     ...action.payload,
+    //   };
     default:
       return appReducer(state, action);
   }

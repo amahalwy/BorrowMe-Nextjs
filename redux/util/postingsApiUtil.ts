@@ -8,6 +8,22 @@ export const fetchPostings = () => {
   );
 };
 
+export const fetchInitial = () => {
+  return axios.get(
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/postings/initial`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/initial`
+  );
+};
+
+export const fetchThree = (num) => {
+  return axios.get(
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/postings/pagenum/${num}`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/pagenum/${num}`
+  );
+};
+
 export const fetchPosting = (postingId) => {
   return axios.get(
     process.env.NODE_ENV === "production"

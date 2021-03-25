@@ -2,9 +2,11 @@ import { createStore, applyMiddleware } from "redux";
 import { createWrapper } from "next-redux-wrapper";
 import thunkMiddleware from "redux-thunk";
 import rootReducer from "../redux/reducers/rootReducer";
-import { logger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { PersistConfig } from "../typescript/components";
+import { logger } from "redux-logger";
+import { persistStore, persistReducer } from "redux-persist";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import { State } from "./types";
 
 // import { createMigrate } from "redux-persist";
 // const migrations = {
@@ -13,11 +15,10 @@ import { PersistConfig } from "../typescript/components";
 
 const initialState = {};
 
-const makeConfiguredStore = (reducer) =>
+export const makeConfiguredStore = (reducer) =>
   createStore(
     reducer,
     initialState,
-    // composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );
 
@@ -27,18 +28,19 @@ export const makeStore = () => {
   if (isServer) {
     return makeConfiguredStore(rootReducer);
   } else {
-    const { persistStore, persistReducer } = require("redux-persist");
-    const storage = require("redux-persist/lib/storage").default;
-    const persistConfig: PersistConfig = {
+    const storage: Storage = require("redux-persist/lib/storage").default;
+    const persistConfig = {
       key: "root",
       storage,
+      stateReconciler: autoMergeLevel2,
+      // whitelist: ["*"],
       // migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
     };
 
     const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store: any = makeConfiguredStore(persistedReducer);
 
-    store.__persistor = persistStore(store); // Nasty hack
+    store.__persistor = persistStore(store);
 
     return store;
   }

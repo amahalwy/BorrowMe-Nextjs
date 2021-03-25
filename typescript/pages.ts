@@ -4,7 +4,7 @@ export interface HomeProps {
   isAuthenticated?: boolean;
   currentUser?: CurrentUser;
   pathname?: string;
-  dispatch?: (r) => void;
+  clearPostings?: () => void;
 }
 export interface LoginProps {
   login?: (user: { email: string; password: string }) => void;

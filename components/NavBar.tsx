@@ -7,10 +7,10 @@ import {
   MenuList,
   MenuItem,
   IconButton,
-  Stack,
+  Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useAsyncFn } from "react-use";
 import { logout } from "../redux/actions/sessionActions";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
@@ -23,6 +23,7 @@ import {
   __LOGGED_IN_BUTTONS,
   __LOGGED_OUT_BUTTONS,
 } from "../generals/objects/navButtons";
+import { ReduxState } from "../redux/types";
 
 const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
   return (
@@ -59,7 +60,7 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
         <MenuButton
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           as={IconButton}
-          aria-label="Options"
+          // aria-label="Options"
           icon={
             !isMenuOpen ? (
               <HamburgerIcon fontSize={18} />
@@ -72,7 +73,7 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
           bg="white"
         />
         {!isAuthenticated ? (
-          <MenuList w="">
+          <MenuList>
             {__LOGGED_OUT_BUTTONS.map((button, i) => {
               return (
                 <MenuItem key={i} onClick={() => router.push(button.path)}>
@@ -90,7 +91,6 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
                 </MenuItem>
               );
             })}
-
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </MenuList>
         )}
@@ -99,12 +99,16 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
   );
 };
 
-const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, logout }) => {
+const NavBar: React.FC<NavBarProps> = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state: ReduxState) => state.session.isAuthenticated
+  );
 
   const [state, fetch] = useAsyncFn(async () => {
-    const response = await logout();
+    const response = await dispatch(logout());
     return response;
   }, []);
 
@@ -112,14 +116,14 @@ const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, logout }) => {
     fetch().then(() => router.push("/login"));
   };
 
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      // Get the notifications thing to show
-    }
-  }, [isAuthenticated]);
+  // React.useEffect(() => {
+  // if (isAuthenticated) {
+  // Get the notifications thing to show
+  // }
+  // }, [isAuthenticated]);
 
   return (
-    <Box w="100%" d="flex" h="66px" bg="#a2d3c2" shadow="xl">
+    <Box w="100%" d="flex" h="10%" bg="#a2d3c2" shadow="xl">
       <NavBarLogo router={router} />
       <NavBarMenu
         isAuthenticated={isAuthenticated}
@@ -132,13 +136,4 @@ const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, logout }) => {
   );
 };
 
-const mSTP = (state) => ({
-  isAuthenticated: state.session.isAuthenticated,
-  currentUser: state.session.user,
-});
-
-const mDTP = {
-  logout: logout,
-};
-
-export default connect(mSTP, mDTP)(NavBar);
+export default connect()(NavBar);

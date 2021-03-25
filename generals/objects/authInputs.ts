@@ -91,6 +91,14 @@ const lastNameProfile: Field = {
   },
 };
 
+export const demopassword: {
+  email: string;
+  password: string;
+} = {
+  email: "demo@demo.com",
+  password: "demo1234",
+};
+
 export const signupInputs = [
   [firstName],
   [lastName],

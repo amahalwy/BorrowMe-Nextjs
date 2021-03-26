@@ -1,44 +1,54 @@
 import React from "react";
-import { Box, Heading } from "@chakra-ui/react";
-import { connect } from "react-redux";
+import { Box } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { ReduxState } from "../redux/types";
+import { fetchOne } from "../redux/util/postingsApiUtil";
+import { PostingsIndexProps } from "../typescript/components";
 import PostingItem from "./PostingItem";
 import PostingModal from "./PostingModal";
-import { PostingsIndexProps } from "../typescript/components";
-
-const NotFoundPostings: React.FC = () => {
-  return (
-    <Box
-      d="flex"
-      justifyContent="center"
-      p={3}
-      shadow="md"
-      borderWidth="1px"
-      flex="1"
-      borderRadius="md"
-      bg="white"
-    >
-      <Heading>No Postings Found</Heading>
-    </Box>
-  );
-};
+import NotFound from "./Postings/NotFound";
+import LoadingPosting from "./Loading/LoadingPosting";
 
 const PostingsIndex: React.FC<PostingsIndexProps> = ({
-  modalPosting,
   filteredList,
+  setFilteredList,
 }) => {
+  const modalPosting = useSelector((state: ReduxState) => state.entities.modal);
+  const [fetchOffset, setFetchOffset] = React.useState<number>(3);
+
+  const fetchData = () => {
+    fetchOne(fetchOffset).then((res) => {
+      setFetchOffset(fetchOffset + 1);
+      const newPostings = filteredList.concat(res.data);
+      setFilteredList(newPostings);
+    });
+  };
+
   return (
-    <Box m="0 auto" w="90%">
-      {filteredList.length <= 0 ? <NotFoundPostings /> : null}
-      {Object.values(filteredList).map((posting, i) => {
-        return <PostingItem posting={posting} key={i} />;
-      })}
+    <Box>
+      {filteredList.length <= 0 ? (
+        <NotFound />
+      ) : (
+        <InfiniteScroll
+          dataLength={filteredList.length}
+          next={fetchData}
+          hasMore={true}
+          loader={<LoadingPosting />}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          {filteredList.map((posting, i) => {
+            return <PostingItem posting={posting} />;
+          })}
+        </InfiniteScroll>
+      )}
       <PostingModal isOpen={Object.keys(modalPosting).length > 0} />
     </Box>
   );
 };
 
-const mSTP = (state) => ({
-  modalPosting: state.entities.modal,
-});
-
-export default connect(mSTP)(PostingsIndex);
+export default PostingsIndex;

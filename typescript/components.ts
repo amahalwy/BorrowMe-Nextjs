@@ -39,6 +39,7 @@ export interface CalendarState {
 }
 export interface PostingsIndexProps {
   filteredList: Posting[];
+  setFilteredList?: (list: React.SetStateAction<Posting[]>) => any;
 }
 export interface PostingItemProps {
   posting: Posting;

@@ -16,8 +16,13 @@ const breakpoints = createBreakpoints({
 const theme = extendTheme({
   styles: {
     global: {
-      body: { backgroundColor: "rgb(238,238,238)", height: "100vh" },
-      "#__next": { height: "100%" },
+      body: {
+        backgroundColor: "rgb(238,238,238)",
+        height: "100vh",
+      },
+      "#__next": {
+        height: "100%",
+      },
     },
   },
   colors,

@@ -1,38 +1,24 @@
 import React from "react";
-import { AppProps, AppContext } from "next/app";
-import { Provider, useStore } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { wrapper } from "../redux/store";
-import { ChakraProvider } from "@chakra-ui/react";
+import { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import theme from "../theme/theme";
+import { useStore } from "../redux/store";
 import "../styles.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const store: any = useStore();
+  const store = useStore(pageProps.initialReduxState);
   return (
-    <>
+    <Box h="100%">
       <Provider store={store}>
-        <PersistGate persistor={store.__persistor} loading={<div>Loading</div>}>
-          <ChakraProvider theme={theme}>
-            <NavBar />
-            <Component {...pageProps} />
-          </ChakraProvider>
-        </PersistGate>
+        <ChakraProvider theme={theme}>
+          <NavBar />
+          <Component {...pageProps} />
+        </ChakraProvider>
       </Provider>
-    </>
+    </Box>
   );
 };
 
-MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
-  return {
-    pageProps: {
-      ...(Component.getInitialProps
-        ? await Component.getInitialProps(ctx)
-        : {}),
-      pathname: ctx.pathname,
-    },
-  };
-};
-
-export default wrapper.withRedux(MyApp);
+export default MyApp;

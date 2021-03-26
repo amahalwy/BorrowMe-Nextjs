@@ -1,4 +1,3 @@
-
 const colors = {
   brand: {
     100: "rgb(0,0,0)", //black
@@ -8,6 +7,7 @@ const colors = {
     302: "rgba(1, 42, 54, 0.5)", //light gunmetal (for disabled hover)
     400: "#a2d3c2", //seafoam green (navbar)
     401: "#8bb3a5", //darker seafoam (for hover)
+    500: "#a2d3c2", //Navbar background color (mint green)
   },
 };
 

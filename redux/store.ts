@@ -1,49 +1,78 @@
-import { createStore, applyMiddleware } from "redux";
-import { createWrapper } from "next-redux-wrapper";
-import thunkMiddleware from "redux-thunk";
-import rootReducer from "../redux/reducers/rootReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
 import { logger } from "redux-logger";
-import { persistStore, persistReducer } from "redux-persist";
-import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
-import { State } from "./types";
+import jwt_decode from "jwt-decode";
+import { useMemo } from "react";
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers/rootReducer";
+import thunkMiddleware from "redux-thunk";
+import { setAuthToken } from "./util/sessionApiUtil";
+import { configureStore } from "@reduxjs/toolkit";
+import { logout } from "./actions/sessionActions";
+import { diff } from "jsondiffpatch";
+import thunk from "redux-thunk";
 
-// import { createMigrate } from "redux-persist";
-// const migrations = {
-//   0: (state) => initialState,
-// };
+let store;
 
 const initialState = {};
 
-export const makeConfiguredStore = (reducer) =>
-  createStore(
-    reducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
+export const initStore = (preloadedState = initialState) => {
+  return createStore(
+    rootReducer,
+    preloadedState,
+    composeWithDevTools(applyMiddleware(thunk))
   );
-
-export const makeStore = () => {
-  const isServer = typeof window === "undefined";
-
-  if (isServer) {
-    return makeConfiguredStore(rootReducer);
-  } else {
-    const storage: Storage = require("redux-persist/lib/storage").default;
-    const persistConfig = {
-      key: "root",
-      storage,
-      stateReconciler: autoMergeLevel2,
-      // whitelist: ["*"],
-      // migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
-    };
-
-    const persistedReducer = persistReducer(persistConfig, rootReducer);
-    const store: any = makeConfiguredStore(persistedReducer);
-
-    store.__persistor = persistStore(store);
-
-    return store;
-  }
 };
 
-export const wrapper = createWrapper(makeStore);
+export const initializeStore = (preloadedState) => {
+  let _store = store ?? initStore(preloadedState);
+
+  // After navigating to a page with an initial Redux state, merge that state
+  // with the current state in the store, and create a new store
+  if (preloadedState && store) {
+    // console.log("pre:", preloadedState);
+    // // console.log("storee:", store.getState());
+    // const difference = diff(store.getState(), preloadedState);
+
+    _store = initStore({
+      ...store.getState(),
+      ...preloadedState,
+    });
+    // Reset the current store
+    store = undefined;
+  }
+
+  // For SSG and SSR always create a new store
+  if (typeof window === "undefined") {
+    return _store;
+  } else {
+    if (localStorage.jwtToken) {
+      // Set the token as a common header for all axios requests
+      setAuthToken(localStorage.jwtToken);
+
+      // Decode the token to obtain the user's information
+      const decodedUser = jwt_decode(localStorage.jwtToken);
+
+      // Create a preconfigured state we can immediately add to our store
+      preloadedState = {
+        session: { isAuthenticated: true, user: decodedUser },
+      };
+      _store = initStore(preloadedState);
+    } else {
+      // If this is a first time user, start with an empty store
+      _store = createStore(
+        rootReducer,
+        preloadedState,
+        composeWithDevTools(applyMiddleware(thunk))
+      );
+    }
+  }
+
+  // Create the store once in the client
+  if (!store) store = _store;
+  return _store;
+};
+
+export const useStore = (initialState) => {
+  const store = useMemo(() => initializeStore(initialState), [initialState]);
+  return store;
+};

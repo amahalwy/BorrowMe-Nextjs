@@ -60,77 +60,74 @@ const Login: NextPage<LoginProps> = () => {
   }, []);
 
   return (
-    <Box h="100%">
-      <Box
-        bg="white"
-        m="10% auto"
-        w={{ base: "90%", "500px": "450px" }}
-        borderRadius="md"
-        boxShadow="0 3px 3px #888"
-      >
-        <Box>
-          <Heading fontSize={25} textAlign="center" padding="5%">
-            Login to BorrowMe
-          </Heading>
-        </Box>
-        <Form
-          onSubmit={onSubmit}
-          render={({
-            handleSubmit,
-            submitting,
-            pristine,
-            hasValidationErrors,
-            submitSucceeded,
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <Box w="92%" m="0 auto" pb="4%">
-                <RenderLoginInputs />
-
-                <Box p="30px 0">
-                  <Button
-                    variant="auth-login"
-                    type="submit"
-                    disabled={
-                      submitSucceeded ||
-                      hasValidationErrors ||
-                      pristine ||
-                      submitting ||
-                      state.loading
-                    }
-                    isLoading={state.loading}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    variant="auth-login"
-                    disabled={clickedDemo || state.loading}
-                    isLoading={state.loading}
-                    onClick={() => {
-                      setClickedDemo(!clickedDemo);
-                      demoLogin();
-                    }}
-                  >
-                    Demo Login
-                  </Button>
-                </Box>
-                <Box>{/* <RenderErrors errors={errors} /> */}</Box>
-                <Box>
-                  <Text w="100%" align="center">
-                    Don't have an account yet?{" "}
-                    <Link
-                      onClick={() => router.push("/signup")}
-                      color="blue"
-                      fontStyle="italic"
-                    >
-                      Sign Up
-                    </Link>
-                  </Text>
-                </Box>
-              </Box>
-            </form>
-          )}
-        />
+    <Box
+      bg="white"
+      m="5% auto"
+      w={{ base: "90%", "500px": "450px" }}
+      borderRadius="md"
+      boxShadow="0 3px 3px #888"
+    >
+      <Box>
+        <Heading fontSize={25} textAlign="center" padding="5%">
+          Login to BorrowMe
+        </Heading>
       </Box>
+      <Form
+        onSubmit={onSubmit}
+        render={({
+          handleSubmit,
+          submitting,
+          pristine,
+          hasValidationErrors,
+          submitSucceeded,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Box w="92%" m="0 auto" pb="4%">
+              <RenderLoginInputs />
+              <Box p="30px 0">
+                <Button
+                  variant="auth-login"
+                  type="submit"
+                  disabled={
+                    submitSucceeded ||
+                    hasValidationErrors ||
+                    pristine ||
+                    submitting ||
+                    state.loading
+                  }
+                  isLoading={state.loading}
+                >
+                  Login
+                </Button>
+                <Button
+                  variant="auth-login"
+                  disabled={clickedDemo || state.loading}
+                  isLoading={state.loading}
+                  onClick={() => {
+                    setClickedDemo(!clickedDemo);
+                    demoLogin();
+                  }}
+                >
+                  Demo Login
+                </Button>
+              </Box>
+              <Box>{/* <RenderErrors errors={errors} /> */}</Box>
+              <Box>
+                <Text w="100%" align="center">
+                  Don't have an account yet?{" "}
+                  <Link
+                    onClick={() => router.push("/signup")}
+                    color="blue"
+                    fontStyle="italic"
+                  >
+                    Sign Up
+                  </Link>
+                </Text>
+              </Box>
+            </Box>
+          </form>
+        )}
+      />
     </Box>
   );
 };

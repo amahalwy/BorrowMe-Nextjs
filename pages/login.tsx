@@ -1,68 +1,59 @@
 import React from "react";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
 import { Form } from "react-final-form";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useAsyncFn } from "react-use";
-import { NextPage, NextPageContext } from "next";
-import { clearErrors, login } from "../redux/actions/sessionActions";
+import { NextPage } from "next";
 import { RenderErrors } from "../components/RenderErrors";
 import RenderLoginInputs from "../components/RenderLoginInputs";
 import { LoginProps } from "../typescript/pages";
+import { clearErrors, login } from "../redux/actions/sessionActions";
+import { demopassword } from "../generals/objects/authInputs";
+import { ReduxState } from "../redux/types";
 import { clearPostings } from "../redux/actions/postingActions";
 import { clearUsers } from "../redux/actions/userActions";
 
-const Login: NextPage<LoginProps> = ({
-  login,
-  clearErrors,
-  clearUsers,
-  clearPostings,
-}) => {
+const Login: NextPage<LoginProps> = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [clickedDemo, setClickedDemo] = React.useState<boolean>(false);
+  const isAuthenticated = useSelector(
+    (state: ReduxState) => state.session.isAuthenticated
+  );
   // const errors = useSelector((state) => state.errors.session);
 
   const [state, fetch] = useAsyncFn(async (values) => {
-    const response = await login(values);
+    const response = dispatch(login(values));
     return response;
   }, []);
 
   const onSubmit = (values: { email: string; password: string }) => {
     if (!values) {
-      const demopassword = {
-        email: "demo@demo.com",
-        password: "demo1234",
-      };
-      fetch(demopassword).then((res: any) => {
-        if (res.success) router.push("/home");
-      });
+      fetch(demopassword).then((res: any) =>
+        res.success ? router.push("/home") : null
+      );
       return;
     }
 
-    fetch(values).then((res: any) => {
-      if (res.success) {
-        router.push("/home");
-      }
-      return;
-    });
+    fetch(values).then((res: any) =>
+      res.success ? router.push("/home") : null
+    );
   };
 
   const demoLogin = () => {
-    const demopassword = {
-      email: "demo@demo.com",
-      password: "demo1234",
-    };
     fetch(demopassword).then((res: any) => {
       if (res.success) {
         router.push("/home");
       }
-      return null;
+      return;
     });
   };
 
   React.useEffect(() => {
-    clearPostings();
+    if (isAuthenticated) router.push("/home");
     return () => {
+      clearPostings();
       clearUsers();
       clearErrors();
     };
@@ -71,10 +62,9 @@ const Login: NextPage<LoginProps> = ({
   return (
     <Box
       bg="white"
-      m="10% auto"
-      w={{ base: "90%", lg: "450px" }}
+      m="5% auto"
+      w={{ base: "90%", "500px": "450px" }}
       borderRadius="md"
-      maxW={{ base: null, "450px": "450px" }}
       boxShadow="0 3px 3px #888"
     >
       <Box>
@@ -94,7 +84,6 @@ const Login: NextPage<LoginProps> = ({
           <form onSubmit={handleSubmit}>
             <Box w="92%" m="0 auto" pb="4%">
               <RenderLoginInputs />
-
               <Box p="30px 0">
                 <Button
                   variant="auth-login"
@@ -143,11 +132,4 @@ const Login: NextPage<LoginProps> = ({
   );
 };
 
-const mDTP = {
-  login: login,
-  clearErrors: clearErrors,
-  clearUsers: clearUsers,
-  clearPostings: clearPostings,
-};
-
-export default connect(null, mDTP)(Login);
+export default Login;

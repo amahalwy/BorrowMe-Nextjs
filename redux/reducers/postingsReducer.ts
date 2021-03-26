@@ -10,7 +10,7 @@ const postingsReducer = (state: { page?: any } = {}, action) => {
     case RECEIVE_POSTING:
       return Object.assign({}, state, action.posting.data);
     case RECEIVE_POSTINGS:
-      return Object.assign({}, state, action.postings);
+      return Object.assign({}, state, action.postings.data);
     case CLEAR_POSTINGS:
       return {};
     default:

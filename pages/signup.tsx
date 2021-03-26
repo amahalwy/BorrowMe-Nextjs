@@ -1,23 +1,29 @@
 import React from "react";
-import { useSelector, connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Form } from "react-final-form";
 import { useRouter } from "next/router";
 import { useAsyncFn } from "react-use";
 import { NextPage } from "next";
 import { Box, Button, Heading, Text, Link } from "@chakra-ui/react";
-import { signup, clearErrors } from "../redux/actions/sessionActions";
+import { clearErrors } from "../redux/actions/sessionActions";
 import RenderForm from "../components/RenderSignupInputs";
 import { RenderErrors } from "../components/RenderErrors";
-import { NewUser } from "../redux/types";
+import { NewUser, ReduxState } from "../redux/types";
 import { SignupProps } from "../typescript/pages";
+import { signup } from "../redux/util/sessionApiUtil";
 
-const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
+const Signup: NextPage<SignupProps> = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   // const reduxErrors = useSelector((state) => state.errors.session);
+  const isAuthenticated = useSelector(
+    (state: ReduxState) => state.session.isAuthenticated
+  );
 
   const [state, fetch] = useAsyncFn(async (values) => {
-    const response = await signup(values);
-    return await response;
+    const newUser = await signup(values);
+    dispatch({ type: "RECEIVE_CURRENT_USER", newUser });
+    return await newUser.status;
   }, []);
 
   const onSubmit = (values: NewUser) => {
@@ -30,6 +36,7 @@ const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
   };
 
   React.useEffect(() => {
+    if (isAuthenticated) router.push("/home");
     return () => {
       clearErrors();
     };
@@ -38,8 +45,8 @@ const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
   return (
     <Box
       bg="white"
-      m="6% auto"
-      w={{ base: "90%", lg: "450px" }}
+      m="5% auto"
+      w={{ base: "90%", "500px": "450px" }}
       borderRadius="md"
       boxShadow="0 3px 3px #888"
     >
@@ -114,9 +121,4 @@ const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
   );
 };
 
-const mDTP = {
-  signup: signup,
-  clearErrors: clearErrors,
-};
-
-export default connect(null, mDTP)(Signup);
+export default Signup;

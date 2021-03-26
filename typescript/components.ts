@@ -38,8 +38,8 @@ export interface CalendarState {
   key: string;
 }
 export interface PostingsIndexProps {
-  modalPosting: ModalPosting;
   filteredList: Posting[];
+  setFilteredList?: (list: React.SetStateAction<Posting[]>) => any;
 }
 export interface PostingItemProps {
   posting: Posting;
@@ -54,8 +54,8 @@ export interface SearchBarProps {
 
 // Navbar section
 export interface NavBarProps {
-  isAuthenticated: boolean;
-  logout: () => void;
+  isAuthenticated?: boolean;
+  logout?: () => void;
 }
 export interface NavBarMenuProps {
   router: NextRouter;

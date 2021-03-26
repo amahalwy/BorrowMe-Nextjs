@@ -20,6 +20,7 @@ const Custom404: NextPage<{ isAuthenticated: boolean }> = ({
                   color: "blue",
                   textDecoration: "underline",
                   fontStyle: "italic",
+                  cursor: "pointer",
                 }}
               >
                 home
@@ -35,6 +36,7 @@ const Custom404: NextPage<{ isAuthenticated: boolean }> = ({
                   color: "blue",
                   textDecoration: "underline",
                   fontStyle: "italic",
+                  cursor: "pointer",
                 }}
               >
                 login

@@ -16,11 +16,19 @@ export const fetchInitial = () => {
   );
 };
 
+export const fetchOne = (num) => {
+  return axios.get(
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/postings/fetchOne/${num}`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/fetchOne/${num}`
+  );
+};
+
 export const fetchThree = (num) => {
   return axios.get(
     process.env.NODE_ENV === "production"
-      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/postings/pagenum/${num}`
-      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/pagenum/${num}`
+      ? `${process.env.NEXT_PUBLIC_DEPLOYED_HOST_SERVER}/postings/fetchThree/${num}`
+      : `${process.env.NEXT_PUBLIC_LOCAL_HOST_SERVER}/postings/fetchThree/${num}`
   );
 };
 

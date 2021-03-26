@@ -7,7 +7,6 @@ import {
   MenuList,
   MenuItem,
   IconButton,
-  Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -27,11 +26,11 @@ import { ReduxState } from "../redux/types";
 
 const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
   return (
-    <Box w="85%" ml="4%">
+    <Box>
       <Box h="100%" d="flex" alignItems="center">
         <Box
-          w={{ base: "15%", lg: "5%" }}
-          h={{ base: "70%", lg: "90%" }}
+          w={{ base: "48px", md: "60px" }} // Fix this for different viewports
+          h={{ base: "48px", md: "58px" }} // Fix this for different viewports
           borderRadius="10px"
           _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
           onClick={() => router.push("/home")}
@@ -55,17 +54,17 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
   logoutUser,
 }) => {
   return (
-    <Box w="15%" d="flex" alignItems="center" justifyContent="center">
+    <Box d="flex" alignItems="center" justifyContent="center">
       <Menu isLazy onClose={() => setIsMenuOpen(!isMenuOpen)}>
         <MenuButton
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           as={IconButton}
-          // aria-label="Options"
+          aria-label="Options"
           icon={
             !isMenuOpen ? (
-              <HamburgerIcon fontSize={18} />
+              <HamburgerIcon fontSize={{ base: 14, lg: 18 }} />
             ) : (
-              <CloseIcon fontSize={12} />
+              <CloseIcon fontSize={{ base: 12, lg: 16 }} />
             )
           }
           size="sm"
@@ -106,6 +105,9 @@ const NavBar: React.FC<NavBarProps> = () => {
   const isAuthenticated = useSelector(
     (state: ReduxState) => state.session.isAuthenticated
   );
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    typeof window !== "undefined" ? window.innerWidth : null
+  );
 
   const [state, fetch] = useAsyncFn(async () => {
     const response = await dispatch(logout());
@@ -122,16 +124,39 @@ const NavBar: React.FC<NavBarProps> = () => {
   // }
   // }, [isAuthenticated]);
 
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <Box w="100%" d="flex" h="10%" bg="#a2d3c2" shadow="xl">
-      <NavBarLogo router={router} />
-      <NavBarMenu
-        isAuthenticated={isAuthenticated}
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        logoutUser={logoutUser}
-        router={router}
-      />
+    <Box w="100%" h="8%" bg="#a2d3c2" shadow="xl">
+      <Box
+        h="100%"
+        w="90%"
+        d="flex"
+        m="0 auto"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <NavBarLogo router={router} />
+        {/* {windowDimensions <= 767 ? ( */}
+        <NavBarMenu
+          isAuthenticated={isAuthenticated}
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          logoutUser={logoutUser}
+          router={router}
+        />
+        {/* ) : (
+          windowDimensions
+          // `${width}` */}
+        {/* )} */}
+      </Box>
     </Box>
   );
 };

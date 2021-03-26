@@ -29,8 +29,8 @@ const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
     <Box>
       <Box h="100%" d="flex" alignItems="center">
         <Box
-          w={{ base: "15%", lg: "5%" }} // Fix this for different viewports
-          h={{ base: "70%", lg: "90%" }} // Fix this for different viewports
+          w={{ base: "48px", md: "60px" }} // Fix this for different viewports
+          h={{ base: "48px", md: "58px" }} // Fix this for different viewports
           borderRadius="10px"
           _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
           onClick={() => router.push("/home")}
@@ -144,18 +144,18 @@ const NavBar: React.FC<NavBarProps> = () => {
         justifyContent="space-between"
       >
         <NavBarLogo router={router} />
-        {windowDimensions <= 767 ? (
-          <NavBarMenu
-            isAuthenticated={isAuthenticated}
-            isMenuOpen={isMenuOpen}
-            setIsMenuOpen={setIsMenuOpen}
-            logoutUser={logoutUser}
-            router={router}
-          />
-        ) : (
+        {/* {windowDimensions <= 767 ? ( */}
+        <NavBarMenu
+          isAuthenticated={isAuthenticated}
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          logoutUser={logoutUser}
+          router={router}
+        />
+        {/* ) : (
           windowDimensions
-          // `${width}`
-        )}
+          // `${width}` */}
+        {/* )} */}
       </Box>
     </Box>
   );

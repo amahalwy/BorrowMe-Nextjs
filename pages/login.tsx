@@ -71,7 +71,7 @@ const Login: NextPage<LoginProps> = ({
   return (
     <Box
       bg="white"
-      m="10% auto"
+      m="5% auto"
       w={{ base: "90%", lg: "450px" }}
       borderRadius="md"
       maxW={{ base: null, "450px": "450px" }}

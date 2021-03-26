@@ -38,8 +38,8 @@ const Signup: NextPage<SignupProps> = ({ signup, clearErrors }) => {
   return (
     <Box
       bg="white"
-      m="6% auto"
-      w={{ base: "90%", lg: "450px" }}
+      m="5% auto"
+      w={{ base: "90%", "450px": "90%", "500px": "450px" }}
       borderRadius="md"
       boxShadow="0 3px 3px #888"
     >

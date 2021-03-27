@@ -13,11 +13,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useAsyncFn } from "react-use";
 import { logout } from "../redux/actions/sessionActions";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import {
-  NavBarLogoProps,
-  NavBarMenuProps,
-  NavBarProps,
-} from "../typescript/components";
+import { NavBarLogoProps, NavBarMenuProps } from "../typescript/components";
 import {
   __LOGGED_IN_BUTTONS,
   __LOGGED_OUT_BUTTONS,
@@ -29,8 +25,8 @@ const NavBarLogo: React.FC<NavBarLogoProps> = ({ router }) => {
     <Box>
       <Box h="100%" d="flex" alignItems="center">
         <Box
-          w={{ base: "48px", md: "60px" }} // Fix this for different viewports
-          h={{ base: "48px", md: "58px" }} // Fix this for different viewports
+          w={{ base: "48px", md: "60px" }}
+          h={{ base: "48px", md: "58px" }}
           borderRadius="10px"
           _hover={{ bg: "rgba(0,0,0,0.4)", cursor: "pointer" }}
           onClick={() => router.push("/home")}
@@ -98,7 +94,7 @@ const NavBarMenu: React.FC<NavBarMenuProps> = ({
   );
 };
 
-const NavBar: React.FC<NavBarProps> = () => {
+const NavBar: React.FC = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();

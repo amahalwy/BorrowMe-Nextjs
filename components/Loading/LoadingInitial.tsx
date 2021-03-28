@@ -5,7 +5,7 @@ const LoadingInitial = () => {
   const iterate = [1, 2, 3];
   return (
     <>
-      {iterate.map(() => {
+      {iterate.map((i) => {
         return (
           <Box
             padding="6"
@@ -16,6 +16,7 @@ const LoadingInitial = () => {
             flex="1"
             borderRadius="md"
             bg="white"
+            key={i}
           >
             <SkeletonCircle size="10" />
             <SkeletonText mt="4" noOfLines={4} spacing="4" />

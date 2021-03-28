@@ -42,7 +42,7 @@ const PostingsIndex: React.FC<PostingsIndexProps> = ({
           }
         >
           {filteredList.map((posting, i) => {
-            return <PostingItem posting={posting} />;
+            return <PostingItem posting={posting} key={i} />;
           })}
         </InfiniteScroll>
       )}

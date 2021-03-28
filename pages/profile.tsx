@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Heading } from "@chakra-ui/react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NextPage } from "next";
 import { useAsyncFn } from "react-use";
 import { useRouter } from "next/router";
@@ -10,13 +10,21 @@ import { updateUser } from "../redux/actions/userActions";
 import ProfileImageSection from "../components/Profile/ProfileImageSection";
 import FormSection from "../components/Profile/Form";
 import Loading from "../components/Profile/Loading";
+import { ReduxState } from "../redux/types";
 
-const Profile: NextPage<ProfileProps> = ({
-  currentUser,
-  isAuthenticated,
-  updateUser,
-}) => {
+const Profile: NextPage<ProfileProps> = () => {
+  if (typeof window === "undefined") return null;
   const router = useRouter();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state: ReduxState) => state.session.user);
+  const isAuthenticated = useSelector(
+    (state: ReduxState) => state.session.isAuthenticated
+  );
+
+  React.useEffect(() => {
+    if (!isAuthenticated) router.push("/login");
+  }, [isAuthenticated]);
+
   const [isEditingForm, setIsEditingForm] = React.useState<boolean>(false);
   const [imageSrc, setImageSrc] = React.useState<string | any>(
     currentUser.profilePhoto
@@ -38,10 +46,10 @@ const Profile: NextPage<ProfileProps> = ({
 
   const [state, fetch] = useAsyncFn(async (data) => {
     setIsEditingForm(false);
-    return await updateUser(currentUser._id, data);
+    return dispatch(updateUser(currentUser.id, data));
   }, []);
 
-  const onSubmit = async (values: {
+  interface Values {
     firstName?: string;
     lastName?: string;
     email?: string;
@@ -49,8 +57,9 @@ const Profile: NextPage<ProfileProps> = ({
     city?: string;
     state?: string;
     zipCode?: string;
-    file?: string;
-  }) => {
+    file?: string | File;
+  }
+  const onSubmit = async (values: Values) => {
     const formData = new FormData();
     for (const key in values) {
       formData.append(key, values[key]);
@@ -58,10 +67,6 @@ const Profile: NextPage<ProfileProps> = ({
 
     fetch(formData);
   };
-
-  React.useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, []);
 
   return (
     <Box
@@ -71,12 +76,12 @@ const Profile: NextPage<ProfileProps> = ({
       borderWidth="1px"
       borderRadius="md"
       bg="white"
-      w="95%"
+      w="90%"
       m="5% auto"
     >
       <Box w="90%" m="0 auto">
         <Box d="flex" justifyContent="center">
-          <Heading fontSize={40}>Profile</Heading>
+          <Heading fontSize={34}>Profile</Heading>
         </Box>
         <ProfileImageSection
           state={state}
@@ -105,13 +110,4 @@ const Profile: NextPage<ProfileProps> = ({
   );
 };
 
-const mSTP = (state) => ({
-  isAuthenticated: state.session.isAuthenticated,
-  currentUser: state.session.user,
-});
-
-const mDTP = {
-  updateUser: updateUser,
-};
-
-export default connect(mSTP, mDTP)(Profile);
+export default Profile;

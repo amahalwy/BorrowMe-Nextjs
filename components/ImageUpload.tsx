@@ -26,6 +26,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   return (
     <Box pos="absolute" top="4px" right="4px">
       <IconButton
+        variant="edit-profile"
         aria-label="Upload Picture"
         onClick={() => inputRef.current.click()}
         icon={<AiFillCamera />}

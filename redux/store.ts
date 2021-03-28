@@ -1,14 +1,9 @@
-import { logger } from "redux-logger";
 import jwt_decode from "jwt-decode";
 import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers/rootReducer";
-import thunkMiddleware from "redux-thunk";
 import { setAuthToken } from "./util/sessionApiUtil";
-import { configureStore } from "@reduxjs/toolkit";
-import { logout } from "./actions/sessionActions";
-import { diff } from "jsondiffpatch";
 import thunk from "redux-thunk";
 
 let store;
@@ -25,19 +20,13 @@ export const initStore = (preloadedState = initialState) => {
 
 export const initializeStore = (preloadedState) => {
   let _store = store ?? initStore(preloadedState);
-
   // After navigating to a page with an initial Redux state, merge that state
   // with the current state in the store, and create a new store
   if (preloadedState && store) {
-    // console.log("pre:", preloadedState);
-    // // console.log("storee:", store.getState());
-    // const difference = diff(store.getState(), preloadedState);
-
     _store = initStore({
       ...store.getState(),
       ...preloadedState,
     });
-    // Reset the current store
     store = undefined;
   }
 

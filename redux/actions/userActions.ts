@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "../util/sessionApiUtil";
 import * as APIUtil from "../util/userApiUtil";
 import { receiveCurrentUser } from "./sessionActions";
 export const RECEIVE_USER = "RECEIVE_USER";
@@ -36,10 +38,14 @@ export const fetchUser = (userId) => (dispatch) => {
 
 export const updateUser = (userId, formData) => (dispatch) => {
   return APIUtil.updateUser(userId, formData)
-    .then((user) => {
-      dispatch(update(user.data));
-      dispatch(receiveCurrentUser(user.data));
-      return user.data;
+    .then((res) => {
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      setAuthToken(token);
+      const decoded = jwt_decode(token);
+      dispatch(update(decoded));
+      dispatch(receiveCurrentUser(decoded));
+      return decoded;
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };

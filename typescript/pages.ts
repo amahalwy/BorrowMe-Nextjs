@@ -16,11 +16,7 @@ export interface SignupProps {
   signup: (user: NewUser) => void;
   clearErrors: () => void;
 }
-export interface ProfileProps {
-  isAuthenticated?: boolean;
-  currentUser?: CurrentUser;
-  updateUser: (id: string, data: {}) => Promise<any>;
-}
+export interface ProfileProps {}
 export interface PostingProps {
   postings?: Posting[];
 }

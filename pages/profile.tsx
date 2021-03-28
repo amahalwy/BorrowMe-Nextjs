@@ -90,7 +90,6 @@ const Profile: NextPage<ProfileProps> = () => {
           setImageFile={setImageFile}
           setImageSrc={setImageSrc}
         />
-        {console.log(state)}
         {state.loading ? (
           <Loading />
         ) : isEditingForm ? (

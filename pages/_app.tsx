@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 import theme from "../theme/theme";
 import { useStore } from "../redux/store";
 import "../styles.css";

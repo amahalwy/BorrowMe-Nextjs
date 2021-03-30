@@ -15,27 +15,19 @@ export const __LOGGED_OUT_BUTTONS = [
 
 export const __LOGGED_IN_BUTTONS = [
   {
-    path: "/landing",
-    text: "Landing",
+    path: "/home",
+    text: "Home",
   },
   {
     path: "/profile",
     text: "Profile",
   },
   {
-    path: "/postings",
-    text: "Your postings",
-  },
-  {
     path: "/requests",
-    text: "Outstanding requests",
+    text: "Requests",
   },
   {
     path: "/bookings",
-    text: "Upcoming bookings",
-  },
-  {
-    path: "/home",
-    text: "Home",
+    text: "Bookings",
   },
 ];

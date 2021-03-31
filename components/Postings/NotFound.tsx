@@ -12,6 +12,7 @@ const NotFound: React.FC = () => {
       flex="1"
       borderRadius="md"
       bg="white"
+      m="4% 0"
     >
       <Heading>No Postings Found</Heading>
     </Box>

@@ -9,7 +9,6 @@ import PostingItem from "./PostingItem";
 import PostingModal from "./PostingModal";
 import NotFound from "./Postings/NotFound";
 import LoadingPosting from "./Loading/LoadingPosting";
-import { RECEIVE_POSTINGS } from "../redux/actions/postingActions";
 
 const PostingsIndex: React.FC<PostingsIndexProps> = ({ postings }) => {
   const dispatch = useDispatch();
@@ -20,7 +19,7 @@ const PostingsIndex: React.FC<PostingsIndexProps> = ({ postings }) => {
     fetchOne(fetchOffset).then((res) => {
       setFetchOffset(fetchOffset + 1);
       const newPostings = postings.concat(res.data);
-      dispatch({ type: RECEIVE_POSTINGS, newPostings });
+      dispatch({ type: "RECEIVE_POSTINGS", newPostings });
     });
   };
 

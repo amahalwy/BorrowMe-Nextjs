@@ -47,7 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <FormControl>
             <Field
               name="search"
-              render={({ input, meta }) => (
+              render={({ input }) => (
                 <InputGroup pos="sticky" top="4%" zIndex={2}>
                   <Input
                     w="100%"
@@ -71,7 +71,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
                           <option value="Title">Title</option>
                           <option value="Tag">Tag</option>
                           <option value="Availability">Availability</option>
-                          <option value="Postings">Your Postings</option>
                         </Select>
                       </InputRightElement>
                     )}
@@ -84,21 +83,27 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 <Cal />
               </InputGroup>
             ) : null}
-            <Box m="4% 0" d="flex">
-              <Button type="submit" variant="search" isLoading={state.loading}>
-                Search
-              </Button>
-              <Button
-                bg="brand.400"
-                onClick={() => {
-                  getInitial();
-                  form.reset();
-                }}
-                disabled={submitting || pristine}
-              >
-                Reset
-              </Button>
-            </Box>
+            {pristine ? null : (
+              <Box mt="4%" d="flex">
+                <Button
+                  type="submit"
+                  variant="search"
+                  isLoading={state.loading}
+                >
+                  Search
+                </Button>
+                <Button
+                  bg="brand.400"
+                  onClick={() => {
+                    getInitial();
+                    form.reset();
+                  }}
+                  disabled={submitting || pristine}
+                >
+                  Reset
+                </Button>
+              </Box>
+            )}
           </FormControl>
         </form>
       )}

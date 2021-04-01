@@ -64,7 +64,11 @@ export interface CurrentUser {
 
 interface EntitiesSlice {
   users?: {};
-  postings?: {};
+  postings?:
+    | {}
+    | {
+        [key: number]: Posting;
+      };
   requestorRequests?: {};
   ownerRequests?: {};
   renterBookings?: {};
@@ -82,7 +86,7 @@ interface ErrorsSlice {
 
 interface SessionSlice {
   isAuthenticated?: boolean;
-  user?: CurrentUser;
+  user?: {} | CurrentUser;
 }
 
 export interface ReduxState {

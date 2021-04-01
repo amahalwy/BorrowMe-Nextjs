@@ -11,30 +11,26 @@ import NotFound from "./Postings/NotFound";
 import LoadingPosting from "./Loading/LoadingPosting";
 import { RECEIVE_POSTINGS } from "../redux/actions/postingActions";
 
-const PostingsIndex: React.FC<PostingsIndexProps> = ({
-  filteredList,
-  setFilteredList,
-}) => {
-  const modalPosting = useSelector((state: ReduxState) => state.entities.modal);
+const PostingsIndex: React.FC<PostingsIndexProps> = ({ postings }) => {
   const dispatch = useDispatch();
+  const modalPosting = useSelector((state: ReduxState) => state.entities.modal);
   const [fetchOffset, setFetchOffset] = React.useState<number>(3);
 
   const fetchData = () => {
     fetchOne(fetchOffset).then((res) => {
       setFetchOffset(fetchOffset + 1);
-      const postings = filteredList.concat(res.data);
-      dispatch({ type: RECEIVE_POSTINGS, postings });
-      setFilteredList(postings);
+      const newPostings = postings.concat(res.data);
+      dispatch({ type: RECEIVE_POSTINGS, newPostings });
     });
   };
 
   return (
     <Box>
-      {filteredList.length <= 0 ? (
+      {postings.length <= 0 ? (
         <NotFound />
       ) : (
         <InfiniteScroll
-          dataLength={filteredList.length}
+          dataLength={postings.length}
           next={fetchData}
           hasMore={true}
           loader={<LoadingPosting />}
@@ -44,7 +40,7 @@ const PostingsIndex: React.FC<PostingsIndexProps> = ({
             </p>
           }
         >
-          {filteredList.map((posting, i) => {
+          {postings.map((posting, i) => {
             return <PostingItem posting={posting} key={i} />;
           })}
         </InfiniteScroll>

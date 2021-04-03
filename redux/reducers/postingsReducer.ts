@@ -4,13 +4,24 @@ import {
   CLEAR_POSTINGS,
 } from "../actions/postingActions";
 
-const postingsReducer = (state: { page?: any } = {}, action) => {
-  Object.freeze(state);
+const postingsReducer = (
+  state: {} | any = {},
+  action: { type: any; posting: { data: any }; postings: { data: any } }
+) => {
   switch (action.type) {
     case RECEIVE_POSTING:
       return Object.assign({}, state, action.posting.data);
     case RECEIVE_POSTINGS:
-      return Object.assign({}, state, action.postings.data);
+      const postings = action.postings;
+      return {
+        ...state,
+        ...postings,
+      };
+    case "RECEIVE_SEARCH":
+      const search = action.postings;
+      return {
+        ...search,
+      };
     case CLEAR_POSTINGS:
       return {};
     default:

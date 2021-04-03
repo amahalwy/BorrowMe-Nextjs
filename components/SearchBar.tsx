@@ -48,7 +48,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             <Field
               name="search"
               render={({ input }) => (
-                <InputGroup pos="sticky" top="4%" zIndex={2}>
+                <InputGroup>
                   <Input
                     w="100%"
                     shadow="md"
@@ -62,7 +62,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   <Field
                     name="query"
                     render={({ input }) => (
-                      <InputRightElement w="35%" top="8%" right="1%">
+                      <InputRightElement w="35%" top="9%" right="1%">
                         <Select
                           icon={<ChevronDownIcon />}
                           bg="gray.100"

@@ -7,7 +7,7 @@ export interface PersistConfig {
   stateReconciler: any;
 }
 
-// Generals
+// Postings
 export interface PostingCalendarProps {
   isOpen: boolean;
   modalPosting: ModalPosting;
@@ -38,10 +38,10 @@ export interface CalendarState {
 }
 export interface PostingsIndexProps {
   postings: Posting[];
+  setLocalPostings: (postings: Posting[]) => any;
 }
 export interface PostingItemProps {
   posting: Posting;
-  clickPosting: (_id: string) => void;
 }
 export interface SearchBarProps {
   setLocalPostings: (postings: Posting[]) => any;
@@ -80,7 +80,7 @@ export interface ImageUploadProps {
   setImageSrc: (image: string | ArrayBuffer) => void;
   setImageFile: (image: string | File) => void;
 }
-export interface PortfolioFormSectionProps {
+export interface ProfileFormSectionProps {
   onSubmit: (values: {}) => any;
   initialVals: {} | any;
 }

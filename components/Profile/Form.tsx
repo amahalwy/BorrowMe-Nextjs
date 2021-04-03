@@ -2,9 +2,9 @@ import { Box, Button } from "@chakra-ui/react";
 import React from "react";
 import RenderEditProfileInputs from "../RenderEditProfileInputs";
 import { Form } from "react-final-form";
-import { PortfolioFormSectionProps } from "../../typescript/components";
+import { ProfileFormSectionProps } from "../../typescript/components";
 
-const FormSection: React.FC<PortfolioFormSectionProps> = ({
+const FormSection: React.FC<ProfileFormSectionProps> = ({
   onSubmit,
   initialVals,
 }) => {

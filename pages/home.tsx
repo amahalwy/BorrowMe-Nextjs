@@ -39,18 +39,22 @@ const Home: NextPage<HomeProps> = () => {
   }, []);
 
   return (
-    <Box>
-      <Box w="90%" m="4% auto">
+    <Box w="90%" m="0 auto">
+      <Box w="100%" pos="sticky" top="1%" m="4% 0" zIndex={4}>
         <SearchBar
           setLocalPostings={setLocalPostings}
           getInitial={getInitial}
         />
-        {state.loading ? (
-          <LoadingInitial />
-        ) : (
-          <PostingsIndex postings={localPostings} />
-        )}
       </Box>
+
+      {state.loading ? (
+        <LoadingInitial />
+      ) : (
+        <PostingsIndex
+          postings={localPostings}
+          setLocalPostings={setLocalPostings}
+        />
+      )}
     </Box>
   );
 };

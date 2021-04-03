@@ -86,7 +86,7 @@ interface ErrorsSlice {
 
 interface SessionSlice {
   isAuthenticated?: boolean;
-  user?: {} | CurrentUser;
+  user?: CurrentUser;
 }
 
 export interface ReduxState {

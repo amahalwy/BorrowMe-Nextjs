@@ -10,7 +10,10 @@ import PostingModal from "./PostingModal";
 import NotFound from "./Postings/NotFound";
 import LoadingPosting from "./Loading/LoadingPosting";
 
-const PostingsIndex: React.FC<PostingsIndexProps> = ({ postings }) => {
+const PostingsIndex: React.FC<PostingsIndexProps> = ({
+  postings,
+  setLocalPostings,
+}) => {
   const dispatch = useDispatch();
   const modalPosting = useSelector((state: ReduxState) => state.entities.modal);
   const [fetchOffset, setFetchOffset] = React.useState<number>(3);
@@ -19,16 +22,18 @@ const PostingsIndex: React.FC<PostingsIndexProps> = ({ postings }) => {
     fetchOne(fetchOffset).then((res) => {
       setFetchOffset(fetchOffset + 1);
       const newPostings = postings.concat(res.data);
+      setLocalPostings(newPostings);
       dispatch({ type: "RECEIVE_POSTINGS", newPostings });
     });
   };
 
   return (
-    <Box>
+    <Box maxH="xl" overflow="scroll" h="100%" id="scrollDiv">
       {postings.length <= 0 ? (
         <NotFound />
       ) : (
         <InfiniteScroll
+          scrollableTarget="scrollDiv"
           dataLength={postings.length}
           next={fetchData}
           hasMore={true}

@@ -64,7 +64,11 @@ export interface CurrentUser {
 
 interface EntitiesSlice {
   users?: {};
-  postings?: {};
+  postings?:
+    | {}
+    | {
+        [key: number]: Posting;
+      };
   requestorRequests?: {};
   ownerRequests?: {};
   renterBookings?: {};

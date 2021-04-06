@@ -44,6 +44,34 @@ const Button = {
         },
       },
     },
+    search: {
+      mr: "2%",
+      bg: "brand.300",
+      color: "white",
+      _hover: {
+        bg: "brand.301",
+      },
+    },
+    "non-relative": {
+      pos: "block",
+      bg: "gray.100",
+      lineHeight: "1.2",
+      borderRadius: "md",
+      fontWeight: "semibold",
+      _focus: {
+        boxShadow: "outline",
+      },
+      _disabled: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+        boxShadow: "none",
+      },
+      _hover: {
+        _disabled: {
+          bg: "initial",
+        },
+      },
+    },
   },
 };
 

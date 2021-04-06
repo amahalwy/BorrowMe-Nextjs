@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ReduxState } from "../redux/types";
 import { fetchOne } from "../redux/util/postingsApiUtil";
@@ -11,27 +11,30 @@ import NotFound from "./Postings/NotFound";
 import LoadingPosting from "./Loading/LoadingPosting";
 
 const PostingsIndex: React.FC<PostingsIndexProps> = ({
-  filteredList,
-  setFilteredList,
+  postings,
+  setLocalPostings,
 }) => {
+  const dispatch = useDispatch();
   const modalPosting = useSelector((state: ReduxState) => state.entities.modal);
   const [fetchOffset, setFetchOffset] = React.useState<number>(3);
 
   const fetchData = () => {
     fetchOne(fetchOffset).then((res) => {
       setFetchOffset(fetchOffset + 1);
-      const newPostings = filteredList.concat(res.data);
-      setFilteredList(newPostings);
+      const newPostings = postings.concat(res.data);
+      setLocalPostings(newPostings);
+      dispatch({ type: "RECEIVE_POSTINGS", newPostings });
     });
   };
 
   return (
-    <Box>
-      {filteredList.length <= 0 ? (
+    <Box maxH="xl" overflow="scroll" h="100%" id="scrollDiv">
+      {postings.length <= 0 ? (
         <NotFound />
       ) : (
         <InfiniteScroll
-          dataLength={filteredList.length}
+          scrollableTarget="scrollDiv"
+          dataLength={postings.length}
           next={fetchData}
           hasMore={true}
           loader={<LoadingPosting />}
@@ -41,7 +44,7 @@ const PostingsIndex: React.FC<PostingsIndexProps> = ({
             </p>
           }
         >
-          {filteredList.map((posting, i) => {
+          {postings.map((posting, i) => {
             return <PostingItem posting={posting} key={i} />;
           })}
         </InfiniteScroll>
